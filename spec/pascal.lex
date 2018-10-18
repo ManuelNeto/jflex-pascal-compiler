@@ -37,4 +37,4 @@ program = "Program"
 {separador} {return createToken("separador", yytext());}
 {texto} {return createToken("texto", yytext());}
 
-. { throw new RuntimeException("Caractere inválido " + yytext() + " na linha " + yyline + ", coluna " +yycolumn); }
+. { throw new RuntimeException("Caractere invalido " + yytext() + " na linha " + yyline + ", coluna " +yycolumn); }
