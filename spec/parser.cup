@@ -1,0 +1,42 @@
+import compiler.util.*;
+
+parser code  {:
+ public void report_error(String message, Object info){
+   StringBuffer m = new StringBuffer("Error: " + message + "\n");
+   System.err.print(m);
+ }
+
+ public void report_fatal_error(String message, Object info) {
+   report_error(message, info);
+   throw new RuntimeException("Fatal Syntax Error");
+ }
+:};
+
+terminal SEMICOLON, DOT, LPAREN, RPAREN;
+terminal PROGRAM;
+
+non terminal program;
+non terminal program_heading, block;
+non terminal identifier, identifier_list;
+
+start with program;
+
+program ::=
+    program_heading block DOT {:Logger.print("Program definition");:}
+;
+
+program_heading ::=
+    PROGRAM identifier LPAREN identifier_list RPAREN SEMICOLON {:Logger.print("Program header definition");:}
+;
+
+identifier_list ::= 
+
+;
+
+identifier ::=
+
+;
+
+block ::= 
+
+;
