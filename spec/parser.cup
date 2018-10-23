@@ -23,7 +23,7 @@ non terminal program;
 non terminal program_heading, block;
 non terminal program_heading_opt, identifier_list;
 non terminal statement_part, statement_sequence, aux_statement_sequence, statement;
-non terminal expr, expr_list;
+non terminal expr, expr_list, empty;
 
 start with program;
 
@@ -32,15 +32,20 @@ program ::=
 ;
 
 program_heading ::=
-    PROGRAM IDENTIFIER LPAREN IDENTIFIER RPAREN SEMICOLON {:Logger.print("Program header definition");:}
+    PROGRAM IDENTIFIER program_heading_opt SEMICOLON {:Logger.print("Program header definition");:}
 ;
 
-
-
+program_heading_opt ::=
+	empty
+	|
+	LPAREN identifier_list RPAREN {:Logger.print("Program header optional definition");:}
+;
 
 block ::= 
 	statement_part {: Logger.print("Block definition");:}
 ;
+
+empty ::= /* nothing */;
 
 statement_part ::= 
 	BEGIN expr_list END {:Logger.print("Statement Part");:} 

@@ -1,10 +1,7 @@
 package syntax;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
+
 import java.io.FileReader;
-import java.io.IOException;
 import java.nio.file.Paths;
 
 import org.junit.BeforeClass;
@@ -12,11 +9,9 @@ import org.junit.Test;
 
 import core.GeneratorLexical;
 import core.GeneratorPascal;
-import core.PascalToken;
 import generated.Parser;
 import generated.Scanner;
-import java_cup.Lexer;
-import java_cup.runtime.Symbol;
+import java_cup.runtime.ComplexSymbolFactory;
 
 
 public class PascalSyntaxTest {
@@ -29,19 +24,21 @@ public class PascalSyntaxTest {
 		
 		GeneratorLexical.main(null);
 		GeneratorPascal.main(null);
-		System.out.println("Setup OK");
 		
 		rootPath = Paths.get("").toAbsolutePath().toString();
 		subPath = "/pascal/";
+		System.out.println("Setup Syntax OK");
 	}
 
 	@Test
 	public void helloTest() {	
+		ComplexSymbolFactory csf = new ComplexSymbolFactory();
 		String sourcecode = rootPath + subPath + "hello.pas";
-        
         try {
-			Parser parser = new Parser(new Scanner(new FileReader(sourcecode)));
-			parser.parse();
+        	System.out.println("HELLO Parse Test Init");
+			Parser parser = new Parser(new Scanner(new FileReader(sourcecode)), csf);
+			parser.debug_parse();
+			System.out.println("HELLO Parse Test Out");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
