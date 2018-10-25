@@ -20,7 +20,7 @@ public class PascalSyntaxTest {
 	private static String subPath;
 
 	@BeforeClass
-	public static void setUp() {
+	public static void setUp() throws Exception {
 		
 		GeneratorLexical.main(null);
 		GeneratorPascal.main(null);

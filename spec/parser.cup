@@ -1,6 +1,9 @@
 import compiler.util.*;
+import java_cup.runtime.Symbol;
+
 
 parser code  {:
+
  public void report_error(String message, Object info){
    StringBuffer m = new StringBuffer("Error: " + message + "\n");
    System.err.print(m);
@@ -10,57 +13,31 @@ parser code  {:
    report_error(message, info);
    throw new RuntimeException("Fatal Syntax Error");
  }
+ 
+ public void syntax_error(Symbol s){
+    System.out.println("compiler has detected a syntax error at line " + s.left 
+        + " column " + s.right + "\n");
+}
+
 :};
 
-terminal SEMICOLON, DOT, LPAREN, RPAREN;
-terminal PROGRAM;
-terminal DOT_DOT, END, STRING, BEGIN, IDENTIFIER, COMMA;
-terminal PLUS, LESS, MULT, DIVI;
-terminal java.lang.Number INTEGER_NUMBER;
-terminal java.lang.Number REAL_NUMBER;
 
+/* TERMINAL */
+terminal PROGRAM;
+terminal IDENTIFIER;
+terminal SEMICOLON;
+
+
+/* NON TERMINAL */
 non terminal program;
-non terminal program_heading, block;
-non terminal program_heading_opt, identifier_list;
-non terminal statement_part, statement_sequence, aux_statement_sequence, statement;
-non terminal expr, expr_list, empty;
+non terminal program_heading;
 
 start with program;
 
 program ::=
-    program_heading block DOT {:Logger.print("Program definition");:}
+	program_heading {:Logger.print("Program definition");:}
 ;
 
 program_heading ::=
-    PROGRAM IDENTIFIER program_heading_opt SEMICOLON {:Logger.print("Program header definition");:}
+	PROGRAM IDENTIFIER SEMICOLON {:Logger.print("Program header definition");:}
 ;
-
-program_heading_opt ::=
-	empty
-	|
-	LPAREN identifier_list RPAREN {:Logger.print("Program header optional definition");:}
-;
-
-block ::= 
-	statement_part {: Logger.print("Block definition");:}
-;
-
-empty ::= /* nothing */;
-
-statement_part ::= 
-	BEGIN expr_list END {:Logger.print("Statement Part");:} 
-;
-
-
-expr_list ::= expr_list expr
-            | expr
-;
-
-expr ::= 	  expr PLUS  expr
-            | expr LESS expr
-            | expr MULT expr
-            | expr DIVI expr
-            | INTEGER_NUMBER
-;
-
-

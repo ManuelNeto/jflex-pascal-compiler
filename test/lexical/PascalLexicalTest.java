@@ -19,7 +19,7 @@ public class PascalLexicalTest {
 	private static String subPath;
 
 	@BeforeClass
-	public static void setUp() {
+	public static void setUp() throws Exception {
 		// Generate New Lexical Analyzer with pascal.lex
 		GeneratorLexical.main(null);
 		rootPath = Paths.get("").toAbsolutePath().toString();
@@ -41,8 +41,8 @@ public class PascalLexicalTest {
 
 			Symbol symb = lexer.next_token();
 			while (symb.sym != sym.EOF) {
-				symb = lexer.next_token();
 				System.out.println(symb + " Name: " + sym.terminalNames[symb.sym]);
+				symb = lexer.next_token();
 			}
 		
 			

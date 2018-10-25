@@ -10,7 +10,7 @@ import jflex.SilentExit;
 
 public class GeneratorPascal {
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws internal_error, IOException, Exception{
 
     	String rootPath = Paths.get("").toAbsolutePath().toString();
 		String corePath = "/spec/";
@@ -21,11 +21,7 @@ public class GeneratorPascal {
         String options = "-d";
         String[] generateArgs = {options,genPath,file};
 
-		try {
-			jflex.Main.generate(generateArgs);
-		} catch (SilentExit e) {
-			e.printStackTrace();
-		}
+		jflex.Main.generate(generateArgs);
 		
 		
 		String op1 = "-compact_red";
@@ -51,11 +47,7 @@ public class GeneratorPascal {
 		
 		System.out.println("COMEÇANDO O CUP\n");
 		
-		try {
-			java_cup.Main.main(opts);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		java_cup.Main.main(opts);
 
 
     }

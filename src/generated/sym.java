@@ -8,45 +8,17 @@ package generated;
 /** CUP generated class containing symbol constants. */
 public class sym {
   /* terminals */
-  public static final int SEMICOLON = 2;
-  public static final int PLUS = 13;
-  public static final int RPAREN = 5;
-  public static final int DIVI = 16;
-  public static final int END = 8;
-  public static final int IDENTIFIER = 11;
-  public static final int LPAREN = 4;
-  public static final int PROGRAM = 6;
-  public static final int BEGIN = 10;
-  public static final int STRING = 9;
-  public static final int COMMA = 12;
-  public static final int EOF = 0;
-  public static final int MULT = 15;
+  public static final int SEMICOLON = 4;
   public static final int error = 1;
-  public static final int DOT = 3;
-  public static final int INTEGER_NUMBER = 17;
-  public static final int DOT_DOT = 7;
-  public static final int REAL_NUMBER = 18;
-  public static final int LESS = 14;
+  public static final int IDENTIFIER = 3;
+  public static final int EOF = 0;
+  public static final int PROGRAM = 2;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
-  "SEMICOLON",
-  "DOT",
-  "LPAREN",
-  "RPAREN",
   "PROGRAM",
-  "DOT_DOT",
-  "END",
-  "STRING",
-  "BEGIN",
   "IDENTIFIER",
-  "COMMA",
-  "PLUS",
-  "LESS",
-  "MULT",
-  "DIVI",
-  "INTEGER_NUMBER",
-  "REAL_NUMBER"
+  "SEMICOLON"
   };
 }
 
