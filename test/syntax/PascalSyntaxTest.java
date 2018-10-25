@@ -36,7 +36,7 @@ public class PascalSyntaxTest {
 		String sourcecode = rootPath + subPath + "hello.pas";
         try {
         	System.out.println("HELLO Parse Test Init");
-			Parser parser = new Parser(new Scanner(new FileReader(sourcecode)), csf);
+			Parser parser = new Parser(new Scanner(new FileReader(sourcecode)));
 			parser.debug_parse();
 			System.out.println("HELLO Parse Test Out");
 		} catch (Exception e) {

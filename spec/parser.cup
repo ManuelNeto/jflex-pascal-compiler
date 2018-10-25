@@ -20,10 +20,9 @@ terminal java.lang.Number INTEGER_NUMBER;
 terminal java.lang.Number REAL_NUMBER;
 
 non terminal program;
-non terminal program_heading, block;
-non terminal program_heading_opt, identifier_list;
+non terminal program_heading, block, program_heading_opt;
 non terminal statement_part, statement_sequence, aux_statement_sequence, statement;
-non terminal expr, expr_list, empty;
+non terminal expr, expr_list;
 
 start with program;
 
@@ -36,16 +35,13 @@ program_heading ::=
 ;
 
 program_heading_opt ::=
-	empty
-	|
-	LPAREN identifier_list RPAREN {:Logger.print("Program header optional definition");:}
+	LPAREN IDENTIFIER RPAREN {:Logger.print("Program header optional definition");:}
 ;
 
 block ::= 
 	statement_part {: Logger.print("Block definition");:}
 ;
 
-empty ::= /* nothing */;
 
 statement_part ::= 
 	BEGIN expr_list END {:Logger.print("Statement Part");:} 
