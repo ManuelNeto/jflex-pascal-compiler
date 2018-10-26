@@ -22,6 +22,13 @@ import core.Token;
   
 %}
 
+
+/* Integer literals */
+Sign = "+" | "-"
+DecimalLiteral 	= 0 | [1-9][0-9]*
+DigitSequence 	= {Sign}? {DecimalLiteral}
+IntegerNumber 	= {DigitSequence}
+
 /* Identifiers */
 Identifier = [:jletter:][:jletterdigit:]+
 
@@ -37,6 +44,8 @@ WhiteSpace     = {LineTerminator} | [ \t\f]
 
     /* Keywords */
     "program"                      { return symbol(sym.PROGRAM); }
+    "begin"						   { return symbol(sym.BEGIN); }
+    "end"                          { return symbol(sym.END); }
     
     /* Booleans */
 
@@ -49,10 +58,12 @@ WhiteSpace     = {LineTerminator} | [ \t\f]
 
     /* Separators */
     ";"                             { return symbol(sym.SEMICOLON); }
+    "."   		  				    { return symbol(sym.DOT); }
 
     /* String literal */
     
     /* Number literal */
+    {IntegerNumber}                 { return symbol(sym.INTEGER_NUMBER, new Integer(yytext())); }
 	
     /* Character literal */
 
@@ -62,11 +73,14 @@ WhiteSpace     = {LineTerminator} | [ \t\f]
     /* Logical Operators*/
 
     /* Arithmetical operators*/
+    "+"  							{ return symbol(sym.PLUS); }
+    "-" 							{ return symbol(sym.MINUS); }
+    "*"								{ return symbol(sym.MULT); }
+    "/"								{ return symbol(sym.DIV); }
     
     /* Operators */
     
     /* Relational Operators*/	
-    
 
     /* Assignment */
     

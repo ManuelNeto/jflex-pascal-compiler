@@ -24,20 +24,47 @@ parser code  {:
 
 /* TERMINAL */
 terminal PROGRAM;
-terminal IDENTIFIER;
-terminal SEMICOLON;
+terminal IDENTIFIER, BEGIN, END;
+terminal SEMICOLON, DOT;
+terminal PLUS, MINUS, MULT, DIV;
+terminal java.lang.Number INTEGER_NUMBER;
 
 
 /* NON TERMINAL */
 non terminal program;
-non terminal program_heading;
+non terminal program_header, block;
+non terminal statement_part;
+non terminal expr;
 
 start with program;
 
 program ::=
-	program_heading {:Logger.print("Program definition");:}
+	program_header block DOT {:Logger.print("Program definition");:}
 ;
 
-program_heading ::=
+program_header ::=
 	PROGRAM IDENTIFIER SEMICOLON {:Logger.print("Program header definition");:}
 ;
+
+block ::=
+	statement_part {: Logger.print("Block definition");:}
+;
+
+statement_part ::=
+	BEGIN expr END {:Logger.print("Statement Part");:} 
+;
+
+expr ::=
+		expr PLUS expr
+	|	expr MINUS expr
+	|	expr MULT expr
+	|	expr DIV expr
+	|	INTEGER_NUMBER
+;
+
+
+
+
+
+
+
