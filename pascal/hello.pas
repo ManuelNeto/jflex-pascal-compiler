@@ -1,6 +1,4 @@
-Program CalcularSalario;
-    Begin
-        Write('Hello World. Prepare to learn PASCAL!!');
-        Readln;
-    End.
-End.
+program HelloWorld;
+begin
+  5 + 7
+end.

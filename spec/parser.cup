@@ -1,0 +1,64 @@
+import compiler.util.*;
+
+parser code  {:
+ public void report_error(String message, Object info){
+   StringBuffer m = new StringBuffer("Error: " + message + "\n");
+   System.err.print(m);
+ }
+
+ public void report_fatal_error(String message, Object info) {
+   report_error(message, info);
+   throw new RuntimeException("Fatal Syntax Error");
+ }
+:};
+
+terminal SEMICOLON, DOT, LPAREN, RPAREN;
+terminal PROGRAM;
+terminal DOT_DOT, END, STRING, BEGIN, IDENTIFIER, COMMA;
+terminal PLUS, LESS, MULT, DIVI;
+terminal java.lang.Number INTEGER_NUMBER;
+terminal java.lang.Number REAL_NUMBER;
+
+non terminal program;
+non terminal program_heading, block, program_heading_opt;
+non terminal statement_part, statement_sequence, aux_statement_sequence, statement;
+non terminal expr, expr_list;
+
+start with program;
+
+program ::=
+    program_heading block DOT {:Logger.print("Program definition");:}
+;
+
+program_heading ::=
+    PROGRAM IDENTIFIER program_heading_opt SEMICOLON {:Logger.print("Program header definition");:}
+;
+
+program_heading_opt ::=
+	
+	{:Logger.print("VAZIO");:}
+	| LPAREN IDENTIFIER RPAREN {:Logger.print("Program header optional definition");:}
+;
+
+block ::= 
+	statement_part {: Logger.print("Block definition");:}
+;
+
+
+statement_part ::= 
+	BEGIN expr_list END {:Logger.print("Statement Part");:} 
+;
+
+
+expr_list ::= expr_list expr
+            | expr
+;
+
+expr ::= 	  expr PLUS  expr
+            | expr LESS expr
+            | expr MULT expr
+            | expr DIVI expr
+            | INTEGER_NUMBER
+;
+
+

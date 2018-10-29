@@ -15,5 +15,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="/home/maia/Documents/ESTUDO/COMPILA/COMPILADORES/PROJETO/pascal-compiler-master/libs/java-cup-11a.jar"/>
+	<classpathentry kind="lib" path="/home/maia/Documents/ESTUDO/COMPILA/COMPILADORES/PROJETO/pascal-compiler-master/libs/jflex-1.6.1.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

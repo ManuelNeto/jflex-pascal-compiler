@@ -1,19 +1,17 @@
 package lexical;
 
-import static org.junit.Assert.*;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.nio.file.Paths;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import core.GeneratorPascal;
-import core.PascalToken;
-import generated.LexicalAnalyzer;
+import core.GeneratorLexical;
+import generated.Scanner;
+import java_cup.runtime.Symbol;
+import generated.sym;
 
 public class PascalLexicalTest {
 
@@ -23,7 +21,7 @@ public class PascalLexicalTest {
 	@BeforeClass
 	public static void setUp() {
 		// Generate New Lexical Analyzer with pascal.lex
-		GeneratorPascal.main(null);
+		GeneratorLexical.main(null);
 		rootPath = Paths.get("").toAbsolutePath().toString();
 		subPath = "/pascal/";
 
@@ -31,72 +29,74 @@ public class PascalLexicalTest {
 	}
 
 	@Test
-	public void helloTest() {
-		// Load Hello Lexical
+	public void helloTest() {	
+        //Load Hello Lexical
+		System.out.println("INICIO Hello");
 		String testCode1Path = rootPath + subPath + "/hello.pas";
-		LexicalAnalyzer helloLexical = null;
 		try {
-			helloLexical = new LexicalAnalyzer(new FileReader(testCode1Path));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+			String rootPath = Paths.get("").toAbsolutePath().toString();
+			FileInputStream stream = new FileInputStream(testCode1Path);
+			Reader reader = new InputStreamReader(stream);
+			Scanner lexer = new Scanner(reader);
 
-		// Print Tokens
-		PascalToken token;
-		try {
-			while ((token = helloLexical.yylex()) != null) {
-				System.out.println(
-						"<" + token.name + ", " + token.value + "> (" + token.line + " - " + token.column + ")");
+			Symbol symb = lexer.next_token();
+			while (symb.sym != sym.EOF) {
+				symb = lexer.next_token();
+				System.out.println(symb + " Name: " + sym.terminalNames[symb.sym]);
 			}
-		} catch (IOException e) {
+		
+			
+		} catch (Exception e) {
 			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 	}
-
+	
 	@Test
-	public void ifTest() {
-		// Load Hello Lexical
+	public void ifTest() {	
+        //Load If Lexical
+		System.out.println("INICIO If");
 		String testCode1Path = rootPath + subPath + "/if.pas";
-		LexicalAnalyzer helloLexical = null;
 		try {
-			helloLexical = new LexicalAnalyzer(new FileReader(testCode1Path));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+			String rootPath = Paths.get("").toAbsolutePath().toString();
+			FileInputStream stream = new FileInputStream(testCode1Path);
+			Reader reader = new InputStreamReader(stream);
+			Scanner lexer = new Scanner(reader);
 
-		// Print Tokens
-		PascalToken token;
-		try {
-			while ((token = helloLexical.yylex()) != null) {
-				System.out.println(
-						"<" + token.name + ", " + token.value + "> (" + token.line + " - " + token.column + ")");
+			Symbol symb = lexer.next_token();
+			while (symb.sym != sym.EOF) {
+				symb = lexer.next_token();
+				System.out.println(symb + " Name: " + sym.terminalNames[symb.sym]);
 			}
-		} catch (IOException e) {
+		
+			
+		} catch (Exception e) {
 			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 	}
-
+	
 	@Test
-	public void addTest() {
-		// Load Hello Lexical
+	public void addTest() {	
+        //Load Add Lexical
+		System.out.println("INICIO Add");
 		String testCode1Path = rootPath + subPath + "/add.pas";
-		LexicalAnalyzer helloLexical = null;
 		try {
-			helloLexical = new LexicalAnalyzer(new FileReader(testCode1Path));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+			String rootPath = Paths.get("").toAbsolutePath().toString();
+			FileInputStream stream = new FileInputStream(testCode1Path);
+			Reader reader = new InputStreamReader(stream);
+			Scanner lexer = new Scanner(reader);
 
-		// Print Tokens
-		PascalToken token;
-		try {
-			while ((token = helloLexical.yylex()) != null) {
-				System.out.println(
-						"<" + token.name + ", " + token.value + "> (" + token.line + " - " + token.column + ")");
+			Symbol symb = lexer.next_token();
+			while (symb.sym != sym.EOF) {
+				symb = lexer.next_token();
+				System.out.println(symb + " Name: " + sym.terminalNames[symb.sym]);
 			}
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 	}
+
 
 }
