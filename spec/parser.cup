@@ -35,7 +35,9 @@ program_heading ::=
 ;
 
 program_heading_opt ::=
-	LPAREN IDENTIFIER RPAREN {:Logger.print("Program header optional definition");:}
+	
+	{:Logger.print("VAZIO");:}
+	| LPAREN IDENTIFIER RPAREN {:Logger.print("Program header optional definition");:}
 ;
 
 block ::= 

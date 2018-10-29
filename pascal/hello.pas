@@ -1,4 +1,4 @@
-program HelloWorld(output);
+program HelloWorld;
 begin
   5 + 7
 end.

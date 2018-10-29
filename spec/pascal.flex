@@ -1,23 +1,35 @@
 package generated;
 import java_cup.runtime.*;
-import core.Token;
+import core.PascalSymbol;
 
 %%
 
+
 %public
 %class Scanner
+%unicode
+%line
+%column
 %cup
+%cupdebug
 
 %{
-   StringBuffer string = new StringBuffer();
 
+	ComplexSymbolFactory symbolFactory;
+    public Scanner(java.io.Reader in, ComplexSymbolFactory sf){
+		this(in);
+		symbolFactory = sf;
+    }
+
+   StringBuffer string = new StringBuffer();
   private Symbol symbol(int type) {
-	return new Token(type);
+	return new PascalSymbol(type, yyline+1, yycolumn+1);
   }
 
   private Symbol symbol(int type, Object value) {
-	return new Token(type, value);
+	return new PascalSymbol(type, yyline+1, yycolumn+1, value);
   }
+
 %}
 
 /* Integer literals */

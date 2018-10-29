@@ -2,7 +2,7 @@
 
 package generated;
 import java_cup.runtime.*;
-import core.Token;
+import core.PascalSymbol;
 
 
 /**
@@ -391,15 +391,22 @@ public class Scanner implements java_cup.runtime.Scanner {
   private int zzFinalHighSurrogate = 0;
 
   /* user code: */
-   StringBuffer string = new StringBuffer();
 
+	ComplexSymbolFactory symbolFactory;
+    public Scanner(java.io.Reader in, ComplexSymbolFactory sf){
+		this(in);
+		symbolFactory = sf;
+    }
+
+   StringBuffer string = new StringBuffer();
   private Symbol symbol(int type) {
-	return new Token(type);
+	return new PascalSymbol(type, yyline+1, yycolumn+1);
   }
 
   private Symbol symbol(int type, Object value) {
-	return new Token(type, value);
+	return new PascalSymbol(type, yyline+1, yycolumn+1, value);
   }
+
 
 
   /**
@@ -662,6 +669,62 @@ public class Scanner implements java_cup.runtime.Scanner {
     while (true) {
       zzMarkedPosL = zzMarkedPos;
 
+      boolean zzR = false;
+      int zzCh;
+      int zzCharCount;
+      for (zzCurrentPosL = zzStartRead  ;
+           zzCurrentPosL < zzMarkedPosL ;
+           zzCurrentPosL += zzCharCount ) {
+        zzCh = Character.codePointAt(zzBufferL, zzCurrentPosL, zzMarkedPosL);
+        zzCharCount = Character.charCount(zzCh);
+        switch (zzCh) {
+        case '\u000B':
+        case '\u000C':
+        case '\u0085':
+        case '\u2028':
+        case '\u2029':
+          yyline++;
+          yycolumn = 0;
+          zzR = false;
+          break;
+        case '\r':
+          yyline++;
+          yycolumn = 0;
+          zzR = true;
+          break;
+        case '\n':
+          if (zzR)
+            zzR = false;
+          else {
+            yyline++;
+            yycolumn = 0;
+          }
+          break;
+        default:
+          zzR = false;
+          yycolumn += zzCharCount;
+        }
+      }
+
+      if (zzR) {
+        // peek one character ahead if it is \n (if we have counted one line too much)
+        boolean zzPeek;
+        if (zzMarkedPosL < zzEndReadL)
+          zzPeek = zzBufferL[zzMarkedPosL] == '\n';
+        else if (zzAtEOF)
+          zzPeek = false;
+        else {
+          boolean eof = zzRefill();
+          zzEndReadL = zzEndRead;
+          zzMarkedPosL = zzMarkedPos;
+          zzBufferL = zzBuffer;
+          if (eof) 
+            zzPeek = false;
+          else 
+            zzPeek = zzBufferL[zzMarkedPosL] == '\n';
+        }
+        if (zzPeek) yyline--;
+      }
       zzAction = -1;
 
       zzCurrentPosL = zzCurrentPos = zzStartRead = zzMarkedPosL;
@@ -803,6 +866,89 @@ public class Scanner implements java_cup.runtime.Scanner {
           case 36: break;
           default:
             zzScanError(ZZ_NO_MATCH);
+        }
+      }
+    }
+  }
+
+  /**
+   * Converts an int token code into the name of the
+   * token by reflection on the cup symbol class/interface sym
+   *
+   * This code was contributed by Karl Meissner <meissnersd@yahoo.com>
+   */
+  private String getTokenName(int token) {
+    try {
+      java.lang.reflect.Field [] classFields = sym.class.getFields();
+      for (int i = 0; i < classFields.length; i++) {
+        if (classFields[i].getInt(null) == token) {
+          return classFields[i].getName();
+        }
+      }
+    } catch (Exception e) {
+      e.printStackTrace(System.err);
+    }
+
+    return "UNKNOWN TOKEN";
+  }
+
+  /**
+   * Same as next_token but also prints the token to standard out
+   * for debugging.
+   *
+   * This code was contributed by Karl Meissner <meissnersd@yahoo.com>
+   */
+  public java_cup.runtime.Symbol debug_next_token() throws java.io.IOException {
+    java_cup.runtime.Symbol s = next_token();
+    System.out.println( "line:" + (yyline+1) + " col:" + (yycolumn+1) + " --"+ yytext() + "--" + getTokenName(s.sym) + "--");
+    return s;
+  }
+
+  /**
+   * Runs the scanner on input files.
+   *
+   * This main method is the debugging routine for the scanner.
+   * It prints debugging information about each returned token to
+   * System.out until the end of file is reached, or an error occured.
+   *
+   * @param argv   the command line, contains the filenames to run
+   *               the scanner on.
+   */
+  public static void main(String argv[]) {
+    if (argv.length == 0) {
+      System.out.println("Usage : java Scanner [ --encoding <name> ] <inputfile(s)>");
+    }
+    else {
+      int firstFilePos = 0;
+      String encodingName = "UTF-8";
+      if (argv[0].equals("--encoding")) {
+        firstFilePos = 2;
+        encodingName = argv[1];
+        try {
+          java.nio.charset.Charset.forName(encodingName); // Side-effect: is encodingName valid? 
+        } catch (Exception e) {
+          System.out.println("Invalid encoding '" + encodingName + "'");
+          return;
+        }
+      }
+      for (int i = firstFilePos; i < argv.length; i++) {
+        Scanner scanner = null;
+        try {
+          java.io.FileInputStream stream = new java.io.FileInputStream(argv[i]);
+          java.io.Reader reader = new java.io.InputStreamReader(stream, encodingName);
+          scanner = new Scanner(reader);
+          while ( !scanner.zzAtEOF ) scanner.debug_next_token();
+        }
+        catch (java.io.FileNotFoundException e) {
+          System.out.println("File not found : \""+argv[i]+"\"");
+        }
+        catch (java.io.IOException e) {
+          System.out.println("IO error scanning file \""+argv[i]+"\"");
+          System.out.println(e);
+        }
+        catch (Exception e) {
+          System.out.println("Unexpected exception:");
+          e.printStackTrace();
         }
       }
     }
