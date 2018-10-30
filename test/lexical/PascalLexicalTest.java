@@ -97,6 +97,52 @@ public class PascalLexicalTest {
 			System.err.println(e.getMessage());
 		}
 	}
+	
+	
+	@Test
+	public void setTest() {	
+        //Load Add Lexical
+		System.out.println("INICIO Set");
+		String testCode1Path = rootPath + subPath + "/set.pas";
+		try {
+			String rootPath = Paths.get("").toAbsolutePath().toString();
+			FileInputStream stream = new FileInputStream(testCode1Path);
+			Reader reader = new InputStreamReader(stream);
+			Scanner lexer = new Scanner(reader);
+
+			Symbol symb = lexer.next_token();
+			while (symb.sym != sym.EOF) {
+				symb = lexer.next_token();
+				System.out.println(symb + " Name: " + sym.terminalNames[symb.sym]);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.err.println(e.getMessage());
+		}
+	}
+	
+	@Test
+	public void logicalOprTest() {	
+        //Load Add Lexical
+		System.out.println("INICIO Logical Opr");
+		String testCode1Path = rootPath + subPath + "/logicalOpr.pas";
+		try {
+			String rootPath = Paths.get("").toAbsolutePath().toString();
+			FileInputStream stream = new FileInputStream(testCode1Path);
+			Reader reader = new InputStreamReader(stream);
+			Scanner lexer = new Scanner(reader);
+
+			Symbol symb = lexer.next_token();
+			while (symb.sym != sym.EOF) {
+				symb = lexer.next_token();
+				System.out.println(symb + " Name: " + sym.terminalNames[symb.sym]);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.err.println(e.getMessage());
+		}
+	}
+
 
 
 }
