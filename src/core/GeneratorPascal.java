@@ -33,7 +33,7 @@ public class GeneratorPascal {
 		
 		String [] genArgs = {op4, op5, file_cup};
 		
-		String [] opts = new String[13];
+/*		String [] opts = new String[13];
 //		opts[0] = "-compact_red";
 //		opts[1] = "-expect";
 //		opts[2] = "10000";
@@ -49,7 +49,10 @@ public class GeneratorPascal {
 		opts[9] = "-expect";
 		opts[10] = "10000";
 		opts[11] = "-compact_red";
-		opts[12] = file_cup;
+		opts[12] = file_cup;*/
+		
+		String [] opts = {"-expect", "10000", "-package", "generated", "-parser", "Parser", "-destdir", genPath, "-symbols", "sym",
+				"-interface", file_cup };
 		
 		System.out.println("COMEÇANDO O CUP\n");
 		

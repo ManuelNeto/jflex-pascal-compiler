@@ -58,8 +58,8 @@ declaration_part ::=
 ;
 
 variable_declaration_part_opt ::=
-	{:Logger.print("VAZIO");:}
-	| variable_declaration_part		{: Logger.print("Variable declaration part optional definition"); :}
+	variable_declaration_part		{: Logger.print("Variable declaration part optional definition"); :}
+	| {:Logger.print("VAZIO");:}
 ;
 
 variable_declaration_part ::=
@@ -67,8 +67,8 @@ variable_declaration_part ::=
 ;
 
 variable_declaration_part_ext ::=
-	{:Logger.print("VAZIO");:}
-	| variable_declaration SEMICOLON variable_declaration_part_ext	{: Logger.print("Variable declaration part ext definition"); :}
+	variable_declaration SEMICOLON variable_declaration_part_ext	{: Logger.print("Variable declaration part ext definition"); :}
+	| {:Logger.print("VAZIO");:}
 ;
 
 variable_declaration ::=
