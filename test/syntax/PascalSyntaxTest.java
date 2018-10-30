@@ -32,12 +32,12 @@ public class PascalSyntaxTest {
 
 	@Test
 	public void helloTest() {	
-		ComplexSymbolFactory csf = new ComplexSymbolFactory();
+//		ComplexSymbolFactory csf = new ComplexSymbolFactory();
 		String sourcecode = rootPath + subPath + "hello.pas";
         try {
         	System.out.println("HELLO Parse Test Init");
-			Parser parser = new Parser(new Scanner(new FileReader(sourcecode)), csf);
-			parser.debug_parse();
+			Parser parser = new Parser(new Scanner(new FileReader(sourcecode)));
+			parser.parse();
 			System.out.println("HELLO Parse Test Out");
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -19,6 +19,14 @@
 			<artifactId>java-cup</artifactId>
 			<version>11b</version>
 		</dependency>
+		
+<!-- 		<dependency> -->
+<!-- 			<groupId>net.sf.squirrel-sql.thirdparty.non-maven</groupId> -->
+<!-- 			<artifactId>java-cup</artifactId> -->
+<!-- 			<version>11a</version> -->
+<!-- 		</dependency> -->
+
+<!-- CTRL + SHIFT + C p/ COMENTAR/DESCOMENTAR -->
 
 
 	</dependencies>

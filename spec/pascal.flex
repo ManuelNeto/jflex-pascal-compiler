@@ -46,6 +46,7 @@ WhiteSpace     = {LineTerminator} | [ \t\f]
     "program"                      { return symbol(sym.PROGRAM); }
     "begin"						   { return symbol(sym.BEGIN); }
     "end"                          { return symbol(sym.END); }
+    "var"                          { return symbol(sym.VAR); }
     
     /* Booleans */
 
@@ -59,6 +60,7 @@ WhiteSpace     = {LineTerminator} | [ \t\f]
     /* Separators */
     ";"                             { return symbol(sym.SEMICOLON); }
     "."   		  				    { return symbol(sym.DOT); }
+    ":"   		  				    { return symbol(sym.COLON); }
 
     /* String literal */
     

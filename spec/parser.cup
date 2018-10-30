@@ -25,33 +25,58 @@ parser code  {:
 /* TERMINAL */
 terminal PROGRAM;
 terminal IDENTIFIER, BEGIN, END;
-terminal SEMICOLON, DOT;
+terminal SEMICOLON, DOT, COLON;
 terminal PLUS, MINUS, MULT, DIV;
 terminal java.lang.Number INTEGER_NUMBER;
+terminal VAR;
 
 
 /* NON TERMINAL */
 non terminal program;
 non terminal program_header, block;
+non terminal declaration_part;
+non terminal variable_declaration_part_opt, variable_declaration_part, variable_declaration_part_ext, variable_declaration;
 non terminal statement_part;
 non terminal expr;
 
 start with program;
 
 program ::=
-	program_header block DOT {:Logger.print("Program definition");:}
+	program_header block DOT 		{: Logger.print("Program definition"); :}
 ;
 
 program_header ::=
-	PROGRAM IDENTIFIER SEMICOLON {:Logger.print("Program header definition");:}
+	PROGRAM IDENTIFIER SEMICOLON 	{: Logger.print("Program header definition"); :}
 ;
 
 block ::=
-	statement_part {: Logger.print("Block definition");:}
+	declaration_part statement_part	{: Logger.print("Block definition");:}
+;
+
+declaration_part ::=
+	variable_declaration_part_opt 	{: Logger.print("Declaration part definition"); :}
+;
+
+variable_declaration_part_opt ::=
+	{:Logger.print("VAZIO");:}
+	| variable_declaration_part		{: Logger.print("Variable declaration part optional definition"); :}
+;
+
+variable_declaration_part ::=
+	VAR variable_declaration SEMICOLON variable_declaration_part_ext {: Logger.print("Variable declaration part definition"); :}
+;
+
+variable_declaration_part_ext ::=
+	{:Logger.print("VAZIO");:}
+	| variable_declaration SEMICOLON variable_declaration_part_ext	{: Logger.print("Variable declaration part ext definition"); :}
+;
+
+variable_declaration ::=
+	IDENTIFIER COLON IDENTIFIER
 ;
 
 statement_part ::=
-	BEGIN expr END {:Logger.print("Statement Part");:} 
+	BEGIN expr END {: Logger.print("Statement Part"); :} 
 ;
 
 expr ::=
@@ -61,8 +86,6 @@ expr ::=
 	|	expr DIV expr
 	|	INTEGER_NUMBER
 ;
-
-
 
 
 
