@@ -20,7 +20,7 @@ public class PascalSyntaxTest {
 	private static String subPath;
 
 	@BeforeClass
-	public static void setUp() {
+	public static void setUp() throws Exception {
 		
 		GeneratorLexical.main(null);
 		GeneratorPascal.main(null);
@@ -32,12 +32,12 @@ public class PascalSyntaxTest {
 
 	@Test
 	public void helloTest() {	
-		ComplexSymbolFactory csf = new ComplexSymbolFactory();
+//		ComplexSymbolFactory csf = new ComplexSymbolFactory();
 		String sourcecode = rootPath + subPath + "hello.pas";
         try {
         	System.out.println("HELLO Parse Test Init");
 			Parser parser = new Parser(new Scanner(new FileReader(sourcecode)));
-			parser.debug_parse();
+			parser.parse();
 			System.out.println("HELLO Parse Test Out");
 		} catch (Exception e) {
 			e.printStackTrace();

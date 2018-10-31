@@ -1,6 +1,9 @@
 import compiler.util.*;
+import java_cup.runtime.Symbol;
+
 
 parser code  {:
+
  public void report_error(String message, Object info){
    StringBuffer m = new StringBuffer("Error: " + message + "\n");
    System.err.print(m);
@@ -10,55 +13,81 @@ parser code  {:
    report_error(message, info);
    throw new RuntimeException("Fatal Syntax Error");
  }
+ 
+ public void syntax_error(Symbol s){
+    System.out.println("compiler has detected a syntax error at line " + s.left 
+        + " column " + s.right + "\n");
+}
+
 :};
 
-terminal SEMICOLON, DOT, LPAREN, RPAREN;
-terminal PROGRAM;
-terminal DOT_DOT, END, STRING, BEGIN, IDENTIFIER, COMMA;
-terminal PLUS, LESS, MULT, DIVI;
-terminal java.lang.Number INTEGER_NUMBER;
-terminal java.lang.Number REAL_NUMBER;
 
+/* TERMINAL */
+terminal PROGRAM;
+terminal IDENTIFIER, BEGIN, END;
+terminal SEMICOLON, DOT, COLON;
+terminal PLUS, MINUS, MULT, DIV;
+terminal java.lang.Number INTEGER_NUMBER;
+terminal VAR;
+
+
+/* NON TERMINAL */
 non terminal program;
-non terminal program_heading, block, program_heading_opt;
-non terminal statement_part, statement_sequence, aux_statement_sequence, statement;
-non terminal expr, expr_list;
+non terminal program_header, block;
+non terminal declaration_part;
+non terminal variable_declaration_part_opt, variable_declaration_part, variable_declaration_part_ext, variable_declaration;
+non terminal statement_part;
+non terminal expr;
 
 start with program;
 
 program ::=
-    program_heading block DOT {:Logger.print("Program definition");:}
+	program_header block DOT 		{: Logger.print("Program definition"); :}
 ;
 
-program_heading ::=
-    PROGRAM IDENTIFIER program_heading_opt SEMICOLON {:Logger.print("Program header definition");:}
+program_header ::=
+	PROGRAM IDENTIFIER SEMICOLON 	{: Logger.print("Program header definition"); :}
 ;
 
-program_heading_opt ::=
-	
-	{:Logger.print("VAZIO");:}
-	| LPAREN IDENTIFIER RPAREN {:Logger.print("Program header optional definition");:}
+block ::=
+	declaration_part statement_part	{: Logger.print("Block definition");:}
 ;
 
-block ::= 
-	statement_part {: Logger.print("Block definition");:}
+declaration_part ::=
+	variable_declaration_part_opt 	{: Logger.print("Declaration part definition"); :}
+;
+
+variable_declaration_part_opt ::=
+	variable_declaration_part		{: Logger.print("Variable declaration part optional definition"); :}
+	| {:Logger.print("VAZIO");:}
+;
+
+variable_declaration_part ::=
+	VAR variable_declaration SEMICOLON variable_declaration_part_ext {: Logger.print("Variable declaration part definition"); :}
+;
+
+variable_declaration_part_ext ::=
+	variable_declaration SEMICOLON variable_declaration_part_ext	{: Logger.print("Variable declaration part ext definition"); :}
+	| {:Logger.print("VAZIO");:}
+;
+
+variable_declaration ::=
+	IDENTIFIER COLON IDENTIFIER
+;
+
+statement_part ::=
+	BEGIN expr END {: Logger.print("Statement Part"); :} 
+;
+
+expr ::=
+		expr PLUS expr
+	|	expr MINUS expr
+	|	expr MULT expr
+	|	expr DIV expr
+	|	INTEGER_NUMBER
 ;
 
 
-statement_part ::= 
-	BEGIN expr_list END {:Logger.print("Statement Part");:} 
-;
 
-
-expr_list ::= expr_list expr
-            | expr
-;
-
-expr ::= 	  expr PLUS  expr
-            | expr LESS expr
-            | expr MULT expr
-            | expr DIVI expr
-            | INTEGER_NUMBER
-;
 
 
