@@ -1,6 +1,6 @@
 package generated;
 import java_cup.runtime.*;
-import core.Token;
+import core.PascalSymbol;
 
 %%
 
@@ -12,13 +12,13 @@ import core.Token;
 
    StringBuffer string = new StringBuffer();
 
-  private Symbol symbol(int type) {
-	return new Token(type);
-  }
+private Symbol symbol(int type) {
+	return new PascalSymbol(type, yyline+1, yycolumn+1);
+ }
 
-  private Symbol symbol(int type, Object value) {
-	return new Token(type, value);
-  }
+private Symbol symbol(int type, Object value) {
+	return new PascalSymbol(type, yyline+1, yycolumn+1, value);
+ }
   
 %}
 
