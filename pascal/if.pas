@@ -1,11 +1,11 @@
-program ifprog(input, output);
+program ifprog;
  
-(*** Demonstrate the if.  ***)
+{ teste }
  
 var
    number: integer;
  
-(* **************************    main      ********************************** *)
+{ main }
  
 begin
   writeln('Please enter an integer between 0 and 100');

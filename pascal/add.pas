@@ -1,6 +1,6 @@
-program add(input, output);
+program add;
  
-(*** Simple program to add 2 integer arrays element by element.  ***)
+{ Simple program to add 2 integer arrays element by element.  }
  
 const
   size = 5;
@@ -12,7 +12,7 @@ var
    i: integer;
    a: intarray;
  
-(* ***************************    adder    ********************************** *)
+{ adder }
  
 procedure adder(var a,b : intarray);
 var
@@ -23,7 +23,7 @@ begin
      b[i] := a[i] + b[i];
 end;
  
-(* **************************    main      ********************************** *)
+{ main }
  
 begin
   for i := 1 to size do 

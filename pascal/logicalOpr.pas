@@ -10,8 +10,8 @@ begin
 	B := 3;
 	C := 1;
 
-	NomeAluno1 := ´Maria Jose´;
-	NomeAluno2 := ´MariaJose´;
+	NomeAluno1 := Maria Jose;
+	NomeAluno2 := MariaJose;
 
 	if ( B = A + C ) and ( NomeAluno1 <> NomeAluno2 ) then
 		writeln( NomeAluno1, B );
