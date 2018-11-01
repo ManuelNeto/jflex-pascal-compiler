@@ -36,6 +36,11 @@ Identifier = [:jletter:][:jletterdigit:]+
 LineTerminator = \r|\n|\r\n
 WhiteSpace     = {LineTerminator} | [ \t\f]
 
+/* Comments */
+startComment = \{ 
+endComment = \}
+contentComment= [^}]*
+Comment = {startComment}{contentComment}{endComment}
 
 %%
 
@@ -71,6 +76,9 @@ WhiteSpace     = {LineTerminator} | [ \t\f]
 
     /* White spaces */
     {WhiteSpace}				    { /*Ignore*/ }
+    
+    /*Comments*/
+    {Comment}						{ /*Ignore*/ }
     
     /* Logical Operators*/
 
