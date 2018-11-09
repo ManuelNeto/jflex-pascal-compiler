@@ -8,37 +8,63 @@ package generated;
 /** CUP generated interface containing symbol constants. */
 public interface sym {
   /* terminals */
-  public static final int MINUS = 10;
+  public static final int LT = 19;
+  public static final int SEMICOLON = 9;
+  public static final int PLUS = 22;
+  public static final int RPAREN = 13;
+  public static final int CONSTANT = 27;
+  public static final int END = 4;
+  public static final int IDENTIFIER = 6;
+  public static final int GT = 20;
+  public static final int LPAREN = 12;
+  public static final int COLON = 11;
   public static final int PROGRAM = 2;
-  public static final int COLON = 8;
-  public static final int MULT = 11;
-  public static final int INTEGER_NUMBER = 13;
-  public static final int PLUS = 9;
+  public static final int BEGIN = 3;
+  public static final int STRING = 7;
+  public static final int COMMA = 14;
+  public static final int LTEQ = 18;
+  public static final int MULT = 24;
   public static final int EOF = 0;
-  public static final int VAR = 14;
-  public static final int DIV = 12;
-  public static final int DOT = 7;
+  public static final int DIV = 25;
+  public static final int MINUS = 23;
+  public static final int CONST = 5;
   public static final int error = 1;
-  public static final int SEMICOLON = 6;
-  public static final int IDENTIFIER = 3;
-  public static final int END = 5;
-  public static final int BEGIN = 4;
+  public static final int DOT = 10;
+  public static final int EQ = 21;
+  public static final int INTEGER_NUMBER = 8;
+  public static final int GTEQ = 17;
+  public static final int EQEQ = 15;
+  public static final int VAR = 26;
+  public static final int DIF = 16;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
   "PROGRAM",
-  "IDENTIFIER",
   "BEGIN",
   "END",
+  "CONST",
+  "IDENTIFIER",
+  "STRING",
+  "INTEGER_NUMBER",
   "SEMICOLON",
   "DOT",
   "COLON",
+  "LPAREN",
+  "RPAREN",
+  "COMMA",
+  "EQEQ",
+  "DIF",
+  "GTEQ",
+  "LTEQ",
+  "LT",
+  "GT",
+  "EQ",
   "PLUS",
   "MINUS",
   "MULT",
   "DIV",
-  "INTEGER_NUMBER",
-  "VAR"
+  "VAR",
+  "CONSTANT"
   };
 }
 

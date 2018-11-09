@@ -22,25 +22,30 @@ private Symbol symbol(int type, Object value) {
   
 %}
 
-
-/* Integer literals */
-Sign = "+" | "-"
-DecimalLiteral 	= 0 | [1-9][0-9]*
-DigitSequence 	= {Sign}? {DecimalLiteral}
-IntegerNumber 	= {DigitSequence}
-
-/* Identifiers */
-Identifier = [:jletter:][:jletterdigit:]+
-
-/* White spaces*/
-LineTerminator = \r|\n|\r\n
-WhiteSpace     = {LineTerminator} | [ \t\f]
-
 /* Comments */
 startComment = \{ 
 endComment = \}
 contentComment= [^}]*
 Comment = {startComment}{contentComment}{endComment}
+
+/* Integer  */
+Sign = "+" | "-"
+DecimalLiteral 	= 0 | [1-9][0-9]*
+DigitSequence 	= {Sign}? {DecimalLiteral}
+IntegerNumber 	= {DigitSequence}
+
+/*String*/
+String = "'"[^\n\r\']+"'"
+
+/* Identifiers */
+Identifier = [:jletter:][:jletterdigit:]+
+Number = {IntegerNumber}
+
+
+/* White spaces*/
+LineTerminator = \r|\n|\r\n
+WhiteSpace     = {LineTerminator} | [ \t\f]
+
 
 %%
 
@@ -52,6 +57,7 @@ Comment = {startComment}{contentComment}{endComment}
     "begin"						   { return symbol(sym.BEGIN); }
     "end"                          { return symbol(sym.END); }
     "var"                          { return symbol(sym.VAR); }
+    "const"						   { return symbol(sym.CONST); }
     
     /* Booleans */
 
@@ -59,6 +65,8 @@ Comment = {startComment}{contentComment}{endComment}
 
     /* Identifier*/
     {Identifier} 					{ return symbol(sym.IDENTIFIER, yytext());}
+    {IntegerNumber}                 { return symbol(sym.INTEGER_NUMBER, new Integer(yytext())); }
+    
     
     /* Comments*/
 
@@ -66,11 +74,16 @@ Comment = {startComment}{contentComment}{endComment}
     ";"                             { return symbol(sym.SEMICOLON); }
     "."   		  				    { return symbol(sym.DOT); }
     ":"   		  				    { return symbol(sym.COLON); }
+    "("								{ return symbol(sym.LPAREN); }
+    ")"								{ return symbol(sym.RPAREN); }
+    ","								{ return symbol(sym.COMMA); }
 
     /* String literal */
     
+    {String}                        { return symbol(sym.STRING,new String(yytext())); }
+    
     /* Number literal */
-    {IntegerNumber}                 { return symbol(sym.INTEGER_NUMBER, new Integer(yytext())); }
+    
 	
     /* Character literal */
 
@@ -81,7 +94,14 @@ Comment = {startComment}{contentComment}{endComment}
     {Comment}						{ /*Ignore*/ }
     
     /* Logical Operators*/
-
+    "=="							{ return symbol(sym.EQEQ); }
+    "!="							{ return symbol(sym.DIF); }
+    ">="							{ return symbol(sym.GTEQ); }
+    "<="							{ return symbol(sym.LTEQ); }
+    "<"								{ return symbol(sym.LT); }
+    ">"								{ return symbol(sym.GT); }
+    "="								{ return symbol(sym.EQ); }
+    
     /* Arithmetical operators*/
     "+"  							{ return symbol(sym.PLUS); }
     "-" 							{ return symbol(sym.MINUS); }
