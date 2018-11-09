@@ -24,11 +24,15 @@ parser code  {:
 
 /* TERMINAL */
 terminal PROGRAM;
-terminal IDENTIFIER, BEGIN, END;
-terminal SEMICOLON, DOT, COLON;
-terminal PLUS, MINUS, MULT, DIV;
+terminal BEGIN, END;
+terminal CONST;
+terminal java.lang.String IDENTIFIER;
+terminal java.lang.String STRING;
 terminal java.lang.Number INTEGER_NUMBER;
-terminal VAR;
+terminal SEMICOLON, DOT, COLON, LPAREN, RPAREN, COMMA;
+terminal EQEQ,DIF,GTEQ,LTEQ,LT,GT,EQ;
+terminal PLUS, MINUS, MULT, DIV;
+terminal VAR, CONSTANT;
 
 
 /* NON TERMINAL */
@@ -36,7 +40,9 @@ non terminal program;
 non terminal program_header, block;
 non terminal declaration_part;
 non terminal variable_declaration_part_opt, variable_declaration_part, variable_declaration_part_ext, variable_declaration;
+non terminal const_definition_part_opt, const_definition_part, const_part_ext, const_part, const, constant;
 non terminal statement_part;
+non terminal number;
 non terminal expr;
 
 start with program;
@@ -54,8 +60,37 @@ block ::=
 ;
 
 declaration_part ::=
+	const_definition_part_opt		{: Logger.print("Constant part definition"); :}
 	variable_declaration_part_opt 	{: Logger.print("Declaration part definition"); :}
 ;
+
+const_definition_part_opt ::=
+	|
+	const_definition_part {: Logger.print("Constant definition part optional definition");:}
+;
+
+const_definition_part ::=
+	CONST const_part SEMICOLON const_part_ext {: Logger.print("Constant definition part optional definition");:}
+;
+
+const_part_ext ::=
+	|
+	const SEMICOLON const_part_ext
+;
+
+const ::=
+	IDENTIFIER EQ constant
+;
+
+constant  ::=
+	number 
+	| STRING
+;
+number ::=
+	INTEGER_NUMBER
+;
+
+
 
 variable_declaration_part_opt ::=
 	variable_declaration_part		{: Logger.print("Variable declaration part optional definition"); :}
