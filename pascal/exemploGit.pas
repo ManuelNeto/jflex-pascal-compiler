@@ -1,6 +1,5 @@
 program exFunction;
 
-,()
 
 const
 	teste=3;
