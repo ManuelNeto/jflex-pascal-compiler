@@ -1,15 +1,15 @@
 program exFunction;
 
-,()
 
 const
-	teste=3;
+	teste = 3;
 	teste2 = 'testeString';
 	
 var
   ret: integer;
 
-function max(var num1, num2: integer): integer;
+function max(num1: integer; num2: integer): integer;
+
 var
    result: integer;
    

@@ -58,6 +58,7 @@ WhiteSpace     = {LineTerminator} | [ \t\f]
     "end"                          { return symbol(sym.END); }
     "var"                          { return symbol(sym.VAR); }
     "const"						   { return symbol(sym.CONST); }
+    "function"					   { return symbol(sym.FUNCTION); }
     
     /* Booleans */
 

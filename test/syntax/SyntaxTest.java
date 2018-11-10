@@ -12,7 +12,7 @@ public class SyntaxTest {
 		
 		String rootPath = Paths.get("").toAbsolutePath().toString();
 		String subPath = "/pascal/";
-		String file = "hello.pas";
+		String file = "exemploGit.pas";
 		
 		String filePath = rootPath + subPath + file;
 		

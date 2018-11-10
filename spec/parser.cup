@@ -23,7 +23,7 @@ parser code  {:
 
 
 /* TERMINAL */
-terminal PROGRAM;
+terminal PROGRAM, FUNCTION;
 terminal BEGIN, END;
 terminal CONST;
 terminal java.lang.String IDENTIFIER;
@@ -41,6 +41,8 @@ non terminal program_header, block;
 non terminal declaration_part;
 non terminal variable_declaration_part_opt, variable_declaration_part, variable_declaration_part_ext, variable_declaration;
 non terminal const_definition_part_opt, const_definition_part, const_part_ext, const_part, const, constant;
+non terminal function_declaration_part_opt, function_dcl, function_heading, function_body, function_statement; 
+non terminal parameter_list_opt, parameter_list, parameter_section_ext, parameter_section, parameter_type,result_type, type_identifier;
 non terminal statement_part;
 non terminal number;
 non terminal expr;
@@ -52,7 +54,7 @@ program ::=
 ;
 
 program_header ::=
-	PROGRAM IDENTIFIER SEMICOLON 	{: Logger.print("Program header definition"); :}
+	PROGRAM IDENTIFIER SEMICOLON 	{: System.out.println("Program header definition"); :}
 ;
 
 block ::=
@@ -61,16 +63,18 @@ block ::=
 
 declaration_part ::=
 	const_definition_part_opt		{: Logger.print("Constant part definition"); :}
-	variable_declaration_part_opt 	{: Logger.print("Declaration part definition"); :}
+	variable_declaration_part_opt 	{: Logger.print("Variable Declaration part definition"); :}
+	function_declaration_part_opt	{: Logger.print("Function declaration part definition"); :}
+	
 ;
 
 const_definition_part_opt ::=
-	|
 	const_definition_part {: Logger.print("Constant definition part optional definition");:}
+	|					
 ;
 
 const_definition_part ::=
-	CONST const_part SEMICOLON const_part_ext {: Logger.print("Constant definition part optional definition");:}
+	CONST const SEMICOLON const_part_ext {: Logger.print("Constant definition part optional definition");:}
 ;
 
 const_part_ext ::=
@@ -89,8 +93,6 @@ constant  ::=
 number ::=
 	INTEGER_NUMBER
 ;
-
-
 
 variable_declaration_part_opt ::=
 	variable_declaration_part		{: Logger.print("Variable declaration part optional definition"); :}
@@ -112,6 +114,55 @@ variable_declaration ::=
 
 statement_part ::=
 	BEGIN expr END {: Logger.print("Statement Part"); :} 
+;
+
+function_declaration_part_opt ::=
+	|
+	function_dcl	{: Logger.print("Function Optional declaration"); :}
+;
+
+function_dcl ::=
+	function_heading SEMICOLON function_body{: Logger.print("Function definition"); :}
+;
+
+function_heading ::=
+	FUNCTION IDENTIFIER LPAREN parameter_list_opt RPAREN COLON result_type SEMICOLON {: Logger.print("Function heading definition");:}
+;
+
+parameter_list_opt ::=
+	|
+	parameter_list {: Logger.print("Parameter list optional definition");:}
+;
+
+parameter_list ::=
+	parameter_section parameter_section_ext {: Logger.print("Parameter list definition");:}
+;
+
+parameter_section_ext ::=
+	 |
+	 SEMICOLON parameter_section parameter_section_ext {: Logger.print("Parameter section extended definition");:}
+;
+
+type_identifier ::=
+	IDENTIFIER {: Logger.print("Type identifier definition");:}
+;
+
+parameter_section ::=
+	IDENTIFIER COLON parameter_type
+;
+
+parameter_type ::=
+	type_identifier
+;
+
+result_type ::=
+	type_identifier {: Logger.print("Result type definition");:}
+;
+
+function_body ::= 
+	variable_declaration_part_opt BEGIN function_statement END;
+	
+function_statement ::=
 ;
 
 expr ::=
