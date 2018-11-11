@@ -46,6 +46,8 @@ non terminal const_definition_part_opt, const_definition_part, const_part_ext, c
 non terminal atribute_part_opt, atribute_part_ext, atribute_part;
 non terminal function_declaration_part_opt, function_dcl, function_heading, function_body, function_statement; 
 non terminal parameter_list_opt, parameter_list, parameter_section_ext, parameter_section, parameter_type,result_type, type_identifier;
+non terminal atribuition_part_opt, atribuition_part_ext, atribuition_part ;
+non terminal conditional_part_opt, conditional_part, conditional_part_ext, op_condition, conditional_body ;
 non terminal statement_part;
 non terminal number;
 non terminal expr;
@@ -72,8 +74,9 @@ declaration_part ::=
 ;
 
 const_definition_part_opt ::=
+	|
 	const_definition_part {: Logger.print("Constant definition part optional definition");:}
-	|					
+						
 ;
 
 const_definition_part ::=
@@ -107,22 +110,36 @@ variable_declaration_part ::=
 ;
 
 variable_declaration_part_ext ::=
+	|
 	variable_declaration SEMICOLON variable_declaration_part_ext	{: Logger.print("Variable declaration part ext definition"); :}
-	| {:Logger.print("VAZIO");:}
 ;
 
 variable_declaration ::=
-	IDENTIFIER COLON IDENTIFIER
-;
+	IDENTIFIER COLON IDENTIFIER;
 
 statement_part ::=
-	BEGIN statement_code END {: Logger.print("Statement Part"); :}
-	|BEGIN expr END {: Logger.print("Statement Part"); :} 
+	BEGIN expr END {: Logger.print("Statement Part"); :} 
 ;
 
 statement_code ::=
-	atribute_part_opt atribute_part_ext
+	|
+	atribuition_part_opt {: Logger.print("Atribuition Part Opt"); :} 
+	conditional_part_opt {: Logger.print("Conditional Part Opt"); :} 
 ;
+
+atribuition_part_opt ::=
+	 atribuition_part SEMICOLON atribuition_part_ext
+;
+
+atribuition_part_ext ::=
+	|
+	atribuition_part
+;
+
+atribuition_part ::=
+	IDENTIFIER COLON EQ constant {: Logger.print("Atribuition Part"); :}
+
+; 
 
 atribute_part_ext ::=
 	|
@@ -138,6 +155,39 @@ atribute_part ::=
 	IDENTIFIER COMMA EQ constant SEMICOLON
 ;
 
+conditional_part_opt ::=
+	|
+	conditional_part conditional_part_ext
+;
+
+conditional_part_ext ::=
+	|
+	conditional_part
+;
+
+conditional_part ::=
+	|
+	|IF LPAREN
+	|IF LPAREN op_condition RPAREN THEN conditional_body conditional_part_ext
+	|ELSE IF LPAREN op_condition RPAREN THEN conditional_body conditional_part_ext
+	|ELSE	conditional_body
+;
+
+op_condition ::=
+	IDENTIFIER LT IDENTIFIER
+	|IDENTIFIER GT IDENTIFIER
+	|IDENTIFIER EQ IDENTIFIER
+	|IDENTIFIER LTEQ IDENTIFIER
+	|IDENTIFIER GTEQ IDENTIFIER
+	|IDENTIFIER DIF IDENTIFIER
+	|IDENTIFIER EQEQ IDENTIFIER
+
+;
+
+conditional_body ::=
+	|
+	atribute_part_opt;
+
 function_declaration_part_opt ::=
 	|
 	function_dcl	{: Logger.print("Function Optional declaration"); :}
@@ -148,7 +198,7 @@ function_dcl ::=
 ;
 
 function_heading ::=
-	FUNCTION IDENTIFIER LPAREN parameter_list_opt RPAREN COLON result_type SEMICOLON {: Logger.print("Function heading definition");:}
+	FUNCTION IDENTIFIER LPAREN parameter_list_opt RPAREN COLON result_type SEMICOLON function_body {: Logger.print("Function heading definition");:}
 ;
 
 parameter_list_opt ::=
@@ -174,7 +224,7 @@ parameter_section ::=
 ;
 
 parameter_type ::=
-	type_identifier
+	type_identifier {: Logger.print("Parameter type definition");:}
 ;
 
 result_type ::=
@@ -182,11 +232,12 @@ result_type ::=
 ;
 
 function_body ::= 
-	variable_declaration_part_opt BEGIN function_statement END;
+	variable_declaration_part_opt BEGIN function_statement END {: Logger.print("Function body definition");:}
+
+;
 	
 function_statement ::=
-	statement_part
-;
+	statement_code;
 
 expr ::=
 		expr PLUS expr
