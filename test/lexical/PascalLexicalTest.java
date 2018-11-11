@@ -164,6 +164,29 @@ public class PascalLexicalTest {
 			System.err.println(e.getMessage());
 		}
 	}
+	
+	@Test
+	public void testLex() {	
+        //Load Hello Lexical
+		String testCode1Path = rootPath + subPath + "/testLex.pas";
+		try {
+			String rootPath = Paths.get("").toAbsolutePath().toString();
+			FileInputStream stream = new FileInputStream(testCode1Path);
+			Reader reader = new InputStreamReader(stream);
+			Scanner lexer = new Scanner(reader);
+
+			Symbol symb = lexer.next_token();
+			while (symb.sym != sym.EOF) {
+				System.out.println(symb + " Name: " + sym.terminalNames[symb.sym]);
+				symb = lexer.next_token();
+			}
+		
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.err.println(e.getMessage());
+		}
+	}
 
 
 

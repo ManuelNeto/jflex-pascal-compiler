@@ -34,6 +34,10 @@ DecimalLiteral 	= 0 | [1-9][0-9]*
 DigitSequence 	= {Sign}? {DecimalLiteral}
 IntegerNumber 	= {DigitSequence}
 
+/* Real */
+RealLiteral = [0-9][0-9]*
+RealNumber = {DigitSequence}"."{RealLiteral}
+
 /*String*/
 String = "'"[^\n\r\']+"'"
 
@@ -66,11 +70,7 @@ WhiteSpace     = {LineTerminator} | [ \t\f]
 
     /* Identifier*/
     {Identifier} 					{ return symbol(sym.IDENTIFIER, yytext());}
-    {IntegerNumber}                 { return symbol(sym.INTEGER_NUMBER, new Integer(yytext())); }
     
-    
-    /* Comments*/
-
     /* Separators */
     ";"                             { return symbol(sym.SEMICOLON); }
     "."   		  				    { return symbol(sym.DOT); }
@@ -84,6 +84,8 @@ WhiteSpace     = {LineTerminator} | [ \t\f]
     {String}                        { return symbol(sym.STRING,new String(yytext())); }
     
     /* Number literal */
+    {IntegerNumber}                 { return symbol(sym.INTEGER_NUMBER, new Integer(yytext())); }
+    {RealNumber}                    { return symbol(sym.REAL_NUMBER, new Float(yytext())); }
     
 	
     /* Character literal */
