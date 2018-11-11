@@ -56,14 +56,31 @@ WhiteSpace     = {LineTerminator} | [ \t\f]
 
 <YYINITIAL> {
 
-    /* Keywords */
-    "program"                      { return symbol(sym.PROGRAM); }
-    "begin"						   { return symbol(sym.BEGIN); }
-    "end"                          { return symbol(sym.END); }
-    "var"                          { return symbol(sym.VAR); }
-    "const"						   { return symbol(sym.CONST); }
-    "function"					   { return symbol(sym.FUNCTION); }
-    
+	/* Reserved Words */
+	"program"                      	{ return symbol(sym.PROGRAM); }
+	"begin"						   	{ return symbol(sym.BEGIN); }
+	"and"							{ return symbol(sym.AND); }
+	"array"							{ return symbol(sym.ARRAY); }
+	"case"							{ return symbol(sym.CASE); }
+	"const"						   	{ return symbol(sym.CONST); }
+	"do"							{ return symbol(sym.DO); }
+	"if"							{ return symbol(sym.IF); }
+	"else"							{ return symbol(sym.ELSE)}
+	"for"							{ return symbol(sym.FOR);}
+	"function"					   	{ return symbol(sym.FUNCTION); }
+	"not"							{ return symbol(sym.NOT); }
+	"or"							{ return symbol(sym.OR); }
+	"procedure"						{ return symbol(sym.PROCEDURE); }
+	"program"						{ return symbol(sym.PROGRAM); }
+	"repeat"						{ return symbol(sym.REPEAT); }
+	"set"							{ return symbol(sym.SET); }
+	"then"							{ return symbol(sym.THEN); }
+	"type"							{ return symbol(sym.TYPE); }
+	"var"                          	{ return symbol(sym.VAR); }
+	"while"							{ return symbol(sym.WHILE); }
+	"string"						{ return symbol(sym.STRINGTERMINAL)}
+	"end"                          	{ return symbol(sym.END); }
+
     /* Booleans */
 
 	/* Other */
