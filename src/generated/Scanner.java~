@@ -924,7 +924,7 @@ private Symbol symbol(int type, Object value) {
             }
           case 73: break;
           case 31: 
-            { return symbol(sym.ELSE)
+            { return symbol(sym.ELSE);
             }
           case 74: break;
           case 32: 
@@ -960,7 +960,7 @@ private Symbol symbol(int type, Object value) {
             }
           case 82: break;
           case 40: 
-            { return symbol(sym.STRINGTERMINAL)
+            { return symbol(sym.STRINGTERMINAL);
             }
           case 83: break;
           case 41: 

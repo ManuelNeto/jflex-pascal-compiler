@@ -61,7 +61,7 @@ WhiteSpace     = {LineTerminator} | [ \t\f]
 	"const"						   	{ return symbol(sym.CONST); }
 	"do"							{ return symbol(sym.DO); }
 	"if"							{ return symbol(sym.IF); }
-	"else"							{ return symbol(sym.ELSE)}
+	"else"							{ return symbol(sym.ELSE); }
 	"for"							{ return symbol(sym.FOR);}
 	"function"					   	{ return symbol(sym.FUNCTION); }
 	"not"							{ return symbol(sym.NOT); }
@@ -74,7 +74,7 @@ WhiteSpace     = {LineTerminator} | [ \t\f]
 	"type"							{ return symbol(sym.TYPE); }
 	"var"                          	{ return symbol(sym.VAR); }
 	"while"							{ return symbol(sym.WHILE); }
-	"string"						{ return symbol(sym.STRINGTERMINAL)}
+	"string"						{ return symbol(sym.STRINGTERMINAL); }
 	"end"                          	{ return symbol(sym.END); }
 
     /* Booleans */
