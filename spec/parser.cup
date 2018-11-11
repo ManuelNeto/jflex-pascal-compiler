@@ -21,26 +21,29 @@ parser code  {:
 
 :};
 
-
 /* TERMINAL */
-terminal PROGRAM, FUNCTION;
+terminal PROGRAM, FUNCTION, PROCEDURE;
 terminal BEGIN, END;
 terminal CONST;
+terminal CASE, DO, WHILE, FOR, REPEAT;
+terminal IF, THEN, ELSE;
+terminal NOT,OR, AND;
 terminal java.lang.String IDENTIFIER;
-terminal java.lang.String STRING;
+terminal java.lang.String STRING, STRINGTERMINAL;
 terminal java.lang.Number INTEGER_NUMBER;
 terminal SEMICOLON, DOT, COLON, LPAREN, RPAREN, COMMA;
 terminal EQEQ,DIF,GTEQ,LTEQ,LT,GT,EQ;
 terminal PLUS, MINUS, MULT, DIV;
-terminal VAR, CONSTANT;
+terminal VAR, CONSTANT, ARRAY, SET, TYPE;
 
 
 /* NON TERMINAL */
 non terminal program;
 non terminal program_header, block;
-non terminal declaration_part;
+non terminal declaration_part, statement_code;
 non terminal variable_declaration_part_opt, variable_declaration_part, variable_declaration_part_ext, variable_declaration;
 non terminal const_definition_part_opt, const_definition_part, const_part_ext, const_part, const, constant;
+non terminal atribute_part_opt, atribute_part_ext, atribute_part;
 non terminal function_declaration_part_opt, function_dcl, function_heading, function_body, function_statement; 
 non terminal parameter_list_opt, parameter_list, parameter_section_ext, parameter_section, parameter_type,result_type, type_identifier;
 non terminal statement_part;
@@ -113,7 +116,26 @@ variable_declaration ::=
 ;
 
 statement_part ::=
-	BEGIN expr END {: Logger.print("Statement Part"); :} 
+	BEGIN statement_code END {: Logger.print("Statement Part"); :}
+	|BEGIN expr END {: Logger.print("Statement Part"); :} 
+;
+
+statement_code ::=
+	atribute_part_opt atribute_part_ext
+;
+
+atribute_part_ext ::=
+	|
+	atribute_part atribute_part_ext
+;
+
+atribute_part_opt ::=
+	|
+	atribute_part
+;
+
+atribute_part ::=
+	IDENTIFIER COMMA EQ constant SEMICOLON
 ;
 
 function_declaration_part_opt ::=
@@ -163,6 +185,7 @@ function_body ::=
 	variable_declaration_part_opt BEGIN function_statement END;
 	
 function_statement ::=
+	statement_part
 ;
 
 expr ::=
