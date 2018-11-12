@@ -151,19 +151,6 @@ atribuition_part ::=
 
 ; 
 
-atribute_part_ext ::=
-	|
-	atribute_part atribute_part_ext
-;
-
-atribute_part_opt ::=
-	|
-	atribute_part;
-
-atribute_part ::=
-	IDENTIFIER COLON EQ constant SEMICOLON
-;
-
 conditional_part_opt ::=
 	|
 	conditional_part{: Logger.print("Conditional Part Opt"); :}
@@ -197,8 +184,8 @@ op_condition ::=
 ;
 
 conditional_body ::=
-	//atribuition_part_opt	;
-	IDENTIFIER COLON EQ IDENTIFIER SEMICOLON;
+	atribuition_part_opt	;
+	//IDENTIFIER COLON EQ IDENTIFIER SEMICOLON;
 	
 
 result_function ::= 
