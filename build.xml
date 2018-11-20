@@ -1,4 +1,4 @@
-<project name="MyProject" default="compile" basedir=".">
+<project name="pascal-compiler" default="compile" basedir=".">
 
 	  <property name="java"     location="src"       />
 	  <property name="classes"  location="bin/cls"   />
@@ -16,6 +16,7 @@
 	          parser="Parser"
 			  interface="true"
 	  	      locations="true"
+	    	  symbols="sym"
 	          debugsymbols="true" />
 	  	<jflex  file="lexer.jflex" destdir="${java}" />
 	  </target>
@@ -34,6 +35,7 @@
 	  </target>
 
 	  <target name="clean">
+	  	<delete file="${java}/Lexer.java" />
 	    <delete file="${java}/Parser.java" />
 	    <delete file="${java}/sym.java" />
 	    <delete file="${java}/Scanner.java" />
