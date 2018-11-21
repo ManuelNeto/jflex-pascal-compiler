@@ -65,14 +65,14 @@ program_header ::=
 ;
 
 block ::=
-	declaration_part statement_part	{: Logger.print("Block definition");:}
+	declaration_part 				{: Logger.print("Declaration part");:}
+	statement_part					{: Logger.print("Statement part");:}
 ;
 
 declaration_part ::=
 	const_definition_part_opt		{: Logger.print("Constant part definition"); :}
 	variable_declaration_part_opt 	{: Logger.print("Variable declaration part definition"); :}
 	function_declaration_part_opt	{: Logger.print("Function declaration part definition"); :}
-	
 ;
 
 const_definition_part_opt ::=
@@ -127,7 +127,7 @@ statement_part ::=
 
 function_call_opt ::= 
 	|
-	IDENTIFIER COLON EQ IDENTIFIER RPAREN function_call_params_opt LPAREN SEMICOLON {: Logger.print("Line 129"); :};
+	IDENTIFIER COLON EQ IDENTIFIER LPAREN function_call_params_opt RPAREN SEMICOLON {: Logger.print("Line 129"); :};
 	
 function_call_params_opt ::= 
 	|

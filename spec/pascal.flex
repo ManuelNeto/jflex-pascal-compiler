@@ -6,6 +6,7 @@ import core.PascalSymbol;
 
 %public
 %class Scanner
+%unicode
 %cup
 
 %{
@@ -37,8 +38,12 @@ IntegerNumber 	= {DigitSequence}
 /*String*/
 String = "'"[^\n\r\']+"'"
 
+UnicodeLetter  = [:letter:]
+UnicodeDigit   = [:digit:]
+Letter         = {UnicodeLetter}|"_"
+
 /* Identifiers */
-Identifier = [:jletter:][:jletterdigit:]+
+Identifier     = {Letter}({Letter} | {UnicodeDigit})*
 Number = {IntegerNumber}
 
 
