@@ -45,6 +45,7 @@ non terminal variable_declaration_part_opt, variable_declaration_part, variable_
 non terminal const_definition_part_opt, const_definition_part, const_part_ext, const_part, const, constant;
 non terminal atribute_part_opt, atribute_part_ext, atribute_part;
 non terminal function_declaration_part_opt, function_dcl, function_heading, function_body, function_statement, result_function;
+non terminal function_call_params_opt, function_call_params_ext;
 non terminal parameter_list_opt, parameter_list, parameter_section_ext, parameter_section, parameter_type,result_type, type_identifier;
 non terminal atribuition_part_opt, atribuition_part_ext, atribuition_part ;
 non terminal conditional_part_opt, conditional_part, conditional_part_ext, op_condition, conditional_body, condition ;
@@ -121,12 +122,21 @@ variable_declaration ::=
 
 statement_part ::=
 	BEGIN expr END {: Logger.print("Line 123"); :}
-	|BEGIN  atribuition_part_opt function_call_opt END {: Logger.print("Line 124");:}
+	|BEGIN  atribuition_part_opt function_call_opt END DOT {: Logger.print("Line 124");:}
 ;
 
 function_call_opt ::= 
 	|
-	IDENTIFIER COLON EQ IDENTIFIER RPAREN LPAREN SEMICOLON {: Logger.print("Line 129"); :};
+	IDENTIFIER COLON EQ IDENTIFIER RPAREN function_call_params_opt LPAREN SEMICOLON {: Logger.print("Line 129"); :};
+	
+function_call_params_opt ::= 
+	|
+	IDENTIFIER function_call_params_ext
+;
+
+function_call_params_ext ::=
+	|
+	COMMA IDENTIFIER function_call_params_ext;
 
 statement_code ::=
 	|
@@ -166,9 +176,9 @@ conditional_part_ext ::=
 	condition conditional_part_ext {: Logger.print("Line 167"); :} ;
 
 condition ::=
-	IF LPAREN op_condition RPAREN THEN conditional_body					{: Logger.print("Line 170"); :}
-	|ELSE IF LPAREN op_condition RPAREN THEN conditional_body			{: Logger.print("Line 171"); :}
-	|ELSE	conditional_body  											{: Logger.print("Line 172"); :}
+	IF LPAREN op_condition RPAREN THEN BEGIN conditional_body END					{: Logger.print("Line 170"); :}
+	|ELSE IF LPAREN op_condition RPAREN THEN BEGIN conditional_body END			{: Logger.print("Line 171"); :}
+	|ELSE BEGIN	conditional_body END  											{: Logger.print("Line 172"); :}
 
 ;
 
