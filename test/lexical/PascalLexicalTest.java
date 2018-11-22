@@ -165,7 +165,7 @@ public class PascalLexicalTest {
 		}
 	}
 	
-	@Test
+		@Test
 	public void exemploProcedure() {	
         //Load Add Lexical
 		System.out.println("INICIO Procedure Exemplo");

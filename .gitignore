@@ -24,3 +24,4 @@ hs_err_pid*
 LexicalAnalyzer.java~
 /target/
 *.orig
+src/generated/Scanner.java~

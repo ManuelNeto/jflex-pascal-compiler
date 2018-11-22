@@ -31,6 +31,7 @@ terminal NOT,OR, AND;
 terminal java.lang.String IDENTIFIER;
 terminal java.lang.String STRING, STRINGTERMINAL;
 terminal java.lang.Number INTEGER_NUMBER;
+terminal java.lang.Number REAL_NUMBER;
 terminal SEMICOLON, DOT, COLON, LPAREN, RPAREN, COMMA;
 terminal EQEQ,DIF,GTEQ,LTEQ,LT,GT,EQ;
 terminal PLUS, MINUS, MULT, DIV;
