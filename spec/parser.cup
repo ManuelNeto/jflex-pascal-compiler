@@ -36,6 +36,7 @@ terminal EQEQ,DIF,GTEQ,LTEQ,LT,GT,EQ;
 terminal PLUS, MINUS, MULT, DIV;
 terminal VAR, CONSTANT, ARRAY, SET, TYPE;
 terminal BOOLEAN_LITERAL;
+terminal TIL, FUNC;
 
 
 /* NON TERMINAL */
@@ -57,6 +58,7 @@ non terminal expr;
 non terminal function_call_opt;
 
 start with program;
+
 
 program ::=
 	program_header block DOT 		{: Logger.print("Program definition"); :}
@@ -143,9 +145,9 @@ statement_part ::=
 
 statement_body ::= 
 	|
-	|expr {: Logger.print("Line 123"); :}
-	|atribuition_part_opt	{: Logger.print("Line 124");:}
-	|call_function
+	|expr statement_body									{: Logger.print("Line 123"); :}
+	|atribuition_part_opt statement_body 					{: Logger.print("Line 124");:}
+	|TIL call_function statement_body
 ;
 
 	
@@ -181,9 +183,8 @@ atribuition_part ::=
 	IDENTIFIER COLON EQ expression		   {: Logger.print("Line 159"); :}
 	|IDENTIFIER COLON EQ constant SEMICOLON {: Logger.print("Line 158"); :}
 	
-;
-	
-expression ::=
+;	
+expression ::= 
 	|
 	|constant
 	|call_function
@@ -305,7 +306,8 @@ procedure_body ::=
 
 
 expr ::=
-		expr PLUS expr
+	|
+	|	expr PLUS expr
 	|	expr MINUS expr
 	|	expr MULT expr
 	|	expr DIV expr
