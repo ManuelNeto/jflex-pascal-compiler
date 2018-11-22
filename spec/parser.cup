@@ -36,22 +36,24 @@ terminal SEMICOLON, DOT, COLON, LPAREN, RPAREN, COMMA;
 terminal EQEQ,DIF,GTEQ,LTEQ,LT,GT,EQ;
 terminal PLUS, MINUS, MULT, DIV;
 terminal VAR, CONSTANT, ARRAY, SET, TYPE;
+terminal BOOLEAN_LITERAL;
 
 
 /* NON TERMINAL */
 non terminal program;
 non terminal program_header, block;
 non terminal declaration_part, statement_code;
-non terminal variable_declaration_part_opt, variable_declaration_part, variable_declaration_part_ext, variable_declaration;
+non terminal variable_declaration_part_opt, variable_declaration_part, variable_declaration_part_ext, variable_declaration, variable_sequence_opt;
 non terminal const_definition_part_opt, const_definition_part, const_part_ext, const_part, const, constant;
 non terminal atribute_part_opt, atribute_part_ext, atribute_part;
 non terminal function_declaration_part_opt, function_dcl, function_heading, function_body, function_statement, result_function;
+non terminal procedure_declaration_part_opt, procedure_dcl, procedure_heading, procedure_body;
 non terminal expression, call_function, function_call_params_opt, function_call_params_ext;
 non terminal parameter_list_opt, parameter_list, parameter_section_ext, parameter_section, parameter_type,result_type, type_identifier;
 non terminal atribuition_part_opt, atribuition_part_ext, atribuition_part ;
 non terminal conditional_part_opt, conditional_part, conditional_part_ext, op_condition, conditional_body, condition ;
-non terminal statement_part;
-non terminal number;
+non terminal statement_part, statement_body;
+non terminal number, boolean;
 non terminal expr;
 non terminal function_call_opt;
 
@@ -71,10 +73,13 @@ block ::=
 ;
 
 declaration_part ::=
-	const_definition_part_opt		{: Logger.print("Constant part definition"); :}
-	variable_declaration_part_opt 	{: Logger.print("Variable declaration part definition"); :}
-	function_declaration_part_opt	{: Logger.print("Function declaration part definition"); :}
+	|
+	|const_definition_part_opt	declaration_part		{: Logger.print("Constant part definition"); :}
+	|variable_declaration_part_opt 	declaration_part	{: Logger.print("Variable declaration part definition"); :}
+	|function_declaration_part_opt	declaration_part	{: Logger.print("Function declaration part definition"); :}
+	|procedure_declaration_part_opt	declaration_part	{: Logger.print("Procedure declaration part definition"); :}
 ;
+
 
 const_definition_part_opt ::=
 	|
@@ -99,10 +104,15 @@ constant  ::=
 	number {: Logger.print("Line 97");:}
 	| IDENTIFIER {: Logger.print("Line 98");:}
 	| STRING {: Logger.print("Line 99");:}
+	| boolean
 ;
 number ::=
 	INTEGER_NUMBER {: Logger.print("Line 102");:}
 ;
+
+boolean ::=
+	BOOLEAN_LITERAL
+	|NOT BOOLEAN_LITERAL;
 
 variable_declaration_part_opt ::=
 	variable_declaration_part		{: Logger.print("Line 106"); :}
@@ -111,6 +121,7 @@ variable_declaration_part_opt ::=
 
 variable_declaration_part ::=
 	VAR variable_declaration SEMICOLON variable_declaration_part_ext {: Logger.print("Line 111"); :}
+	|VAR variable_declaration variable_declaration_part_ext
 ;
 
 variable_declaration_part_ext ::=
@@ -119,11 +130,23 @@ variable_declaration_part_ext ::=
 ;
 
 variable_declaration ::=
-	IDENTIFIER COLON IDENTIFIER {: Logger.print("Line 120");:}; 
+	IDENTIFIER variable_sequence_opt COLON IDENTIFIER {: Logger.print("Line 120");:} 
+;
+variable_sequence_opt ::=
+	|
+	COMMA IDENTIFIER variable_sequence_opt		
+;
 
 statement_part ::=
-	BEGIN expr END {: Logger.print("Line 123"); :}
-	|BEGIN  atribuition_part_opt END  {: Logger.print("Line 124");:}
+	|
+	BEGIN statement_body END
+;
+
+statement_body ::= 
+	|
+	|expr {: Logger.print("Line 123"); :}
+	|atribuition_part_opt	{: Logger.print("Line 124");:}
+	|call_function
 ;
 
 	
@@ -188,7 +211,7 @@ conditional_part_ext ::=
 condition ::=
 	IF LPAREN op_condition RPAREN THEN BEGIN conditional_body END					{: Logger.print("Line 170"); :}
 	|ELSE IF LPAREN op_condition RPAREN THEN BEGIN conditional_body END			{: Logger.print("Line 171"); :}
-	|ELSE BEGIN	conditional_body END  											{: Logger.print("Line 172"); :}
+	|ELSE BEGIN	conditional_body END										{: Logger.print("Line 172"); :}
 
 ;
 
@@ -209,6 +232,7 @@ conditional_body ::=
 ;
 
 result_function ::= 
+	|
 	IDENTIFIER COLON EQ IDENTIFIER SEMICOLON		{: Logger.print("Line 193"); :} ;
 
 function_declaration_part_opt ::=
@@ -261,6 +285,25 @@ function_body ::=
 	
 function_statement ::=
 	statement_code {: Logger.print("Line 244"); :};
+	
+procedure_declaration_part_opt ::=
+	|
+	procedure_dcl	{: Logger.print("Line 197"); :}
+;
+
+procedure_dcl ::=
+	procedure_heading procedure_body{: Logger.print("Line 201"); :}
+;
+
+procedure_heading ::=
+	PROCEDURE IDENTIFIER LPAREN variable_declaration_part_opt RPAREN SEMICOLON{: Logger.print("Line 205"); :}
+;
+
+procedure_body ::=
+	BEGIN function_statement   {: Logger.print("287");:}
+;
+
+
 
 expr ::=
 		expr PLUS expr

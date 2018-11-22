@@ -87,6 +87,8 @@ WhiteSpace     = {LineTerminator} | [ \t\f]
 	"end"                          	{ return symbol(sym.END); }
 
     /* Booleans */
+    "true"                     	 	{ return symbol(sym.BOOLEAN_LITERAL, new Boolean(true)); }
+    "false"                         { return symbol(sym.BOOLEAN_LITERAL, new Boolean(false)); }
 
 	/* Other */
 
