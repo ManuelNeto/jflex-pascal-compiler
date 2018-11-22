@@ -20,6 +20,7 @@ public interface sym {
   public static final int MINUS = 37;
   public static final int FOR = 11;
   public static final int RPAREN = 27;
+  public static final int BOOLEAN_LITERAL = 45;
   public static final int NOT = 16;
   public static final int SEMICOLON = 23;
   public static final int AND = 18;
@@ -39,9 +40,11 @@ public interface sym {
   public static final int EQEQ = 29;
   public static final int CONSTANT = 41;
   public static final int EQ = 35;
+  public static final int TIL = 46;
   public static final int INTEGER_NUMBER = 22;
   public static final int COLON = 25;
   public static final int ELSE = 15;
+  public static final int FUNC = 47;
   public static final int WHILE = 10;
   public static final int THEN = 14;
   public static final int STRINGTERMINAL = 21;
@@ -98,7 +101,10 @@ public interface sym {
   "CONSTANT",
   "ARRAY",
   "SET",
-  "TYPE"
+  "TYPE",
+  "BOOLEAN_LITERAL",
+  "TIL",
+  "FUNC"
   };
 }
 

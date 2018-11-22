@@ -146,7 +146,7 @@ public class PascalLexicalTest {
 	@Test
 	public void exemploGit() {	
         //Load Add Lexical
-		System.out.println("INICIO Logical Opr");
+		System.out.println("INICIO Function Exemplo");
 		String testCode1Path = rootPath + subPath + "/exemploGit.pas";
 		try {
 			String rootPath = Paths.get("").toAbsolutePath().toString();
@@ -165,10 +165,11 @@ public class PascalLexicalTest {
 		}
 	}
 	
-	@Test
-	public void testLex() {	
-        //Load Hello Lexical
-		String testCode1Path = rootPath + subPath + "/testLex.pas";
+		@Test
+	public void exemploProcedure() {	
+        //Load Add Lexical
+		System.out.println("INICIO Procedure Exemplo");
+		String testCode1Path = rootPath + subPath + "/procedure.pas";
 		try {
 			String rootPath = Paths.get("").toAbsolutePath().toString();
 			FileInputStream stream = new FileInputStream(testCode1Path);
@@ -177,11 +178,9 @@ public class PascalLexicalTest {
 
 			Symbol symb = lexer.next_token();
 			while (symb.sym != sym.EOF) {
-				System.out.println(symb + " Name: " + sym.terminalNames[symb.sym]);
 				symb = lexer.next_token();
+				System.out.println(symb + " Name: " + sym.terminalNames[symb.sym]);
 			}
-		
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.err.println(e.getMessage());
