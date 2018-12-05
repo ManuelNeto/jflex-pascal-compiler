@@ -84,7 +84,18 @@ WhiteSpace     = {LineTerminator} | [ \t\f]
 	"var"                          	{ return symbol(sym.VAR); }
 	"while"							{ return symbol(sym.WHILE); }
 	"string"						{ return symbol(sym.STRINGTERMINAL); }
+	"label"                         { return symbol(sym.LABEL); }
+	"of"                           	{ return symbol(sym.OF); }
+	"file"                         	{ return symbol(sym.FILE); }
+	"goto"						   	{ return symbol(sym.GOTO); }
+	"until"						   	{ return symbol(sym.UNTIL); }
+	"to"						   	{ return symbol(sym.TO); }
+	"with"					   	   	{ return symbol(sym.WITH); }
+	"mod"						   	{ return symbol(sym.MOD); }
+	"in"							{ return symbol(sym.IN); }
 	"end"                          	{ return symbol(sym.END); }
+	
+	
 
     /* Booleans */
     "true"                     	 	{ return symbol(sym.BOOLEAN_LITERAL, new Boolean(true)); }
@@ -102,6 +113,9 @@ WhiteSpace     = {LineTerminator} | [ \t\f]
     "("								{ return symbol(sym.LPAREN); }
     ")"								{ return symbol(sym.RPAREN); }
     ","								{ return symbol(sym.COMMA); }
+    "["                             { return symbol(sym.LBRACK); }
+    "]"                             { return symbol(sym.RBRACK); }
+    ".."							{ return symbol(sym.DOT_DOT); }
 
     /* String literal */
     
@@ -120,9 +134,12 @@ WhiteSpace     = {LineTerminator} | [ \t\f]
     /*Comments*/
     {Comment}						{ /*Ignore*/ }
     
+    /* Atribuition */
+    ":="                            { return symbol(sym.ASSIGNMENT); }
+    
     /* Logical Operators*/
     "=="							{ return symbol(sym.EQEQ); }
-    "!="							{ return symbol(sym.DIF); }
+    "<>"							{ return symbol(sym.DIF); }
     ">="							{ return symbol(sym.GTEQ); }
     "<="							{ return symbol(sym.LTEQ); }
     "<"								{ return symbol(sym.LT); }
@@ -135,11 +152,8 @@ WhiteSpace     = {LineTerminator} | [ \t\f]
     "*"								{ return symbol(sym.MULT); }
     "/"								{ return symbol(sym.DIV); }
     
-    /* Operators */
-    
     /* Relational Operators*/	
 
-    /* Assignment */
     
     /*gambis*/
     "~"								{ return symbol(sym.TIL); }

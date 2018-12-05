@@ -23,21 +23,22 @@ parser code  {:
 
 /* TERMINAL */
 terminal PROGRAM, FUNCTION, PROCEDURE;
-terminal BEGIN, END;
-terminal CONST;
-terminal CASE, DO, WHILE, FOR, REPEAT;
-terminal IF, THEN, ELSE;
-terminal NOT,OR, AND;
+terminal BEGIN, END, FILE, WITH;
+terminal CONST, OF, UNTIL, TO;
+terminal CASE, LABEL, DO, WHILE, GOTO, FOR, REPEAT;
+terminal IF, THEN, ELSE, IN;
+terminal NOT,OR, AND, MOD;
 terminal java.lang.String IDENTIFIER;
 terminal java.lang.String STRING, STRINGTERMINAL;
 terminal java.lang.Number INTEGER_NUMBER;
 terminal java.lang.Number REAL_NUMBER;
-terminal SEMICOLON, DOT, COLON, LPAREN, RPAREN, COMMA;
+terminal SEMICOLON, DOT, COLON, LPAREN, RPAREN, COMMA, LBRACK, RBRACK, DOT_DOT;
 terminal EQEQ,DIF,GTEQ,LTEQ,LT,GT,EQ;
 terminal PLUS, MINUS, MULT, DIV;
+terminal ASSIGNMENT;
 terminal VAR, CONSTANT, ARRAY, SET, TYPE;
 terminal BOOLEAN_LITERAL;
-terminal TIL, FUNC;
+terminal TIL, FUNC ;
 
 
 /* NON TERMINAL */
