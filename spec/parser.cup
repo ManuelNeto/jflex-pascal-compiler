@@ -23,29 +23,34 @@ parser code  {:
 
 /* TERMINAL */
 terminal PROGRAM, FUNCTION, PROCEDURE;
-terminal BEGIN, END;
-terminal CONST;
-terminal CASE, DO, WHILE, FOR, REPEAT;
-terminal IF, THEN, ELSE;
-terminal NOT,OR, AND;
+terminal BEGIN, END, FILE, WITH;
+terminal CONST, OF, UNTIL, TO;
+terminal CASE, LABEL, DO, WHILE, GOTO, FOR, REPEAT;
+terminal IF, THEN, ELSE, IN;
+terminal NOT,OR, AND, MOD;
 terminal java.lang.String IDENTIFIER;
 terminal java.lang.String STRING, STRINGTERMINAL;
 terminal java.lang.Number INTEGER_NUMBER;
 terminal java.lang.Number REAL_NUMBER;
-terminal SEMICOLON, DOT, COLON, LPAREN, RPAREN, COMMA;
+terminal SEMICOLON, DOT, COLON, LPAREN, RPAREN, COMMA, LBRACK, RBRACK, DOT_DOT;
 terminal EQEQ,DIF,GTEQ,LTEQ,LT,GT,EQ;
 terminal PLUS, MINUS, MULT, DIV;
+terminal ASSIGNMENT;
 terminal VAR, CONSTANT, ARRAY, SET, TYPE;
 terminal BOOLEAN_LITERAL;
-terminal TIL, FUNC;
+terminal TIL, FUNC ;
 
 
 /* NON TERMINAL */
 non terminal program;
 non terminal program_header, block;
 non terminal declaration_part, statement_code;
+non terminal type_definition_part_opt, type_definition_part, type_definition_part_ext, type_definition, type;
+non terminal simple_type, subrange_type, enumerated_type, structured_type;
+non terminal array_type, set_type;
+non terminal index_type, index_type_ext, element_type, constant_ext, base_type;  
 non terminal variable_declaration_part_opt, variable_declaration_part, variable_declaration_part_ext, variable_declaration, variable_sequence_opt;
-non terminal const_definition_part_opt, const_definition_part, const_part_ext, const_part, const, constant;
+non terminal const_definition_part_opt, const_definition_part, const_part_ext, const_part, const, constant, list_of_identifiers;
 non terminal atribute_part_opt, atribute_part_ext, atribute_part;
 non terminal function_declaration_part_opt, function_dcl, function_heading, function_body, function_statement, result_function;
 non terminal procedure_declaration_part_opt, procedure_dcl, procedure_heading, procedure_body;
@@ -77,9 +82,15 @@ block ::=
 declaration_part ::=
 	|
 	|const_definition_part_opt	declaration_part		{: Logger.print("Constant part definition"); :}
+	|type_definition_part_opt 	declaration_part		{: Logger.print("Type definition part"); :}
 	|variable_declaration_part_opt 	declaration_part	{: Logger.print("Variable declaration part definition"); :}
 	|function_declaration_part_opt	declaration_part	{: Logger.print("Function declaration part definition"); :}
 	|procedure_declaration_part_opt	declaration_part	{: Logger.print("Procedure declaration part definition"); :}
+;
+
+list_of_identifiers ::=
+	IDENTIFIER COMMA list_of_identifiers 	{:Logger.print("Identifier list definition"); :}
+	| IDENTIFIER   							{:Logger.print("Identifier list definition"); :}
 ;
 
 
@@ -103,18 +114,93 @@ const ::=
 ;
 
 constant  ::=
-	number {: Logger.print("Line 97");:}
-	| IDENTIFIER {: Logger.print("Line 98");:}
-	| STRING {: Logger.print("Line 99");:}
+	number 																{: Logger.print("Line 97");:}
+	| IDENTIFIER														{: Logger.print("Line 98");:}
+	| STRING 															{: Logger.print("Line 99");:}
 	| boolean
 ;
 number ::=
-	INTEGER_NUMBER {: Logger.print("Line 102");:}
+	INTEGER_NUMBER 														{: Logger.print("Line 102");:}
+	| REAL_NUMBER	 													{: Logger.print("Line 103");:}
 ;
 
 boolean ::=
-	BOOLEAN_LITERAL
-	|NOT BOOLEAN_LITERAL;
+	BOOLEAN_LITERAL 													{: Logger.print("Line 128");:}
+	|NOT BOOLEAN_LITERAL												{: Logger.print("Line 129");:}
+;
+
+
+type_definition_part_opt ::=
+	|	type_definition_part 											{: Logger.print("Line 134");:}
+;
+
+type_definition_part ::= 
+	TYPE type_definition SEMICOLON type_definition_part_ext 			{: Logger.print("Line 138");:}
+;
+
+type_definition_part_ext ::=
+	type_definition SEMICOLON type_definition_part_ext					{: Logger.print("Line 142");:}
+	|
+;
+
+type_definition ::=
+	IDENTIFIER EQ type													{: Logger.print("Line 147");:}
+;
+
+type ::= 
+	  simple_type														{: Logger.print("Line 151");:}
+	| structured_type													{: Logger.print("Line 152");:}
+	| type_identifier													{: Logger.print("Line 153");:}
+;
+
+simple_type ::=
+      subrange_type														{: Logger.print("Line 157");:}
+	| enumerated_type													{: Logger.print("Line 158");:}
+;
+
+subrange_type ::=
+	constant DOT_DOT constant											{: Logger.print("Line 162");:}
+;
+
+enumerated_type ::= 
+	LPAREN list_of_identifiers RPAREN									{: Logger.print("Line 166");:}
+;
+
+structured_type ::= 
+	  array_type														{: Logger.print("Line 170");:}
+	| set_type															{: Logger.print("Line 171");:}
+;
+
+array_type ::=
+	ARRAY LBRACK index_type index_type_ext RBRACK OF element_type			{: Logger.print("Line 175");:}
+;
+
+index_type_ext ::= 
+	|
+	COMMA index_type index_type_ext											{: Logger.print("Line 180");:}
+;
+
+index_type ::= 
+	simple_type			{: Logger.print("Line 184");:}
+;
+
+element_type ::= 
+	type			{: Logger.print("Line 188");:}
+;
+
+constant_ext ::=
+	|
+	COMMA constant constant_ext			{: Logger.print("Line 193");:}
+;
+
+set_type ::=
+	SET OF base_type			{: Logger.print("Line 197");:}
+;
+
+base_type ::=
+	type			{: Logger.print("Line 201");:}
+;
+
 
 variable_declaration_part_opt ::=
 	variable_declaration_part		{: Logger.print("Line 106"); :}
@@ -181,8 +267,8 @@ atribuition_part_ext ::=
 ;
 
 atribuition_part ::=
-	IDENTIFIER COLON EQ expression		   {: Logger.print("Line 159"); :}
-	|IDENTIFIER COLON EQ constant SEMICOLON {: Logger.print("Line 158"); :}
+	IDENTIFIER ASSIGNMENT expression		   {: Logger.print("Line 159"); :}
+	|IDENTIFIER ASSIGNMENT constant SEMICOLON {: Logger.print("Line 158"); :}
 	
 ;	
 expression ::= 
@@ -234,7 +320,7 @@ conditional_body ::=
 
 result_function ::= 
 	|
-	IDENTIFIER COLON EQ IDENTIFIER SEMICOLON		{: Logger.print("Line 193"); :} ;
+	IDENTIFIER ASSIGNMENT IDENTIFIER SEMICOLON		{: Logger.print("Line 193"); :} ;
 
 function_declaration_part_opt ::=
 	|

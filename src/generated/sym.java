@@ -8,54 +8,68 @@ package generated;
 /** CUP generated interface containing symbol constants. */
 public interface sym {
   /* terminals */
-  public static final int GTEQ = 31;
+  public static final int GTEQ = 44;
   public static final int FUNCTION = 3;
-  public static final int MULT = 38;
-  public static final int CONST = 7;
-  public static final int LTEQ = 32;
-  public static final int CASE = 8;
-  public static final int LPAREN = 26;
-  public static final int REPEAT = 12;
-  public static final int ARRAY = 42;
-  public static final int MINUS = 37;
-  public static final int FOR = 11;
-  public static final int RPAREN = 27;
-  public static final int BOOLEAN_LITERAL = 45;
-  public static final int NOT = 16;
-  public static final int SEMICOLON = 23;
-  public static final int AND = 18;
-  public static final int LT = 33;
-  public static final int TYPE = 44;
-  public static final int OR = 17;
-  public static final int COMMA = 28;
-  public static final int DIV = 39;
+  public static final int MULT = 51;
+  public static final int CONST = 9;
+  public static final int WITH = 8;
+  public static final int ASSIGNMENT = 53;
+  public static final int LTEQ = 45;
+  public static final int CASE = 13;
+  public static final int LPAREN = 36;
+  public static final int REPEAT = 19;
+  public static final int ARRAY = 56;
+  public static final int MINUS = 50;
+  public static final int FOR = 18;
+  public static final int RPAREN = 37;
+  public static final int BOOLEAN_LITERAL = 59;
+  public static final int NOT = 24;
+  public static final int SEMICOLON = 33;
+  public static final int AND = 26;
+  public static final int LT = 46;
+  public static final int TYPE = 58;
+  public static final int IN = 23;
+  public static final int OR = 25;
+  public static final int COMMA = 38;
+  public static final int DIV = 52;
   public static final int BEGIN = 5;
-  public static final int PLUS = 36;
-  public static final int IF = 13;
-  public static final int DOT = 24;
+  public static final int UNTIL = 11;
+  public static final int DOT_DOT = 41;
+  public static final int PLUS = 49;
+  public static final int IF = 20;
+  public static final int DOT = 34;
+  public static final int OF = 10;
   public static final int EOF = 0;
   public static final int error = 1;
   public static final int PROGRAM = 2;
-  public static final int DIF = 30;
-  public static final int EQEQ = 29;
-  public static final int CONSTANT = 41;
-  public static final int EQ = 35;
-  public static final int TIL = 46;
-  public static final int INTEGER_NUMBER = 22;
-  public static final int COLON = 25;
-  public static final int ELSE = 15;
-  public static final int FUNC = 47;
-  public static final int WHILE = 10;
-  public static final int THEN = 14;
-  public static final int STRINGTERMINAL = 21;
+  public static final int DIF = 43;
+  public static final int EQEQ = 42;
+  public static final int MOD = 27;
+  public static final int REAL_NUMBER = 32;
+  public static final int CONSTANT = 55;
+  public static final int EQ = 48;
+  public static final int TIL = 60;
+  public static final int LBRACK = 39;
+  public static final int INTEGER_NUMBER = 31;
+  public static final int COLON = 35;
+  public static final int ELSE = 22;
+  public static final int FUNC = 61;
+  public static final int RBRACK = 40;
+  public static final int TO = 12;
+  public static final int FILE = 7;
+  public static final int GOTO = 17;
+  public static final int WHILE = 16;
+  public static final int THEN = 21;
+  public static final int STRINGTERMINAL = 30;
   public static final int END = 6;
-  public static final int STRING = 20;
-  public static final int GT = 34;
-  public static final int VAR = 40;
+  public static final int STRING = 29;
+  public static final int LABEL = 14;
+  public static final int GT = 47;
+  public static final int VAR = 54;
   public static final int PROCEDURE = 4;
-  public static final int DO = 9;
-  public static final int SET = 43;
-  public static final int IDENTIFIER = 19;
+  public static final int DO = 15;
+  public static final int SET = 57;
+  public static final int IDENTIFIER = 28;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
@@ -64,28 +78,41 @@ public interface sym {
   "PROCEDURE",
   "BEGIN",
   "END",
+  "FILE",
+  "WITH",
   "CONST",
+  "OF",
+  "UNTIL",
+  "TO",
   "CASE",
+  "LABEL",
   "DO",
   "WHILE",
+  "GOTO",
   "FOR",
   "REPEAT",
   "IF",
   "THEN",
   "ELSE",
+  "IN",
   "NOT",
   "OR",
   "AND",
+  "MOD",
   "IDENTIFIER",
   "STRING",
   "STRINGTERMINAL",
   "INTEGER_NUMBER",
+  "REAL_NUMBER",
   "SEMICOLON",
   "DOT",
   "COLON",
   "LPAREN",
   "RPAREN",
   "COMMA",
+  "LBRACK",
+  "RBRACK",
+  "DOT_DOT",
   "EQEQ",
   "DIF",
   "GTEQ",
@@ -97,6 +124,7 @@ public interface sym {
   "MINUS",
   "MULT",
   "DIV",
+  "ASSIGNMENT",
   "VAR",
   "CONSTANT",
   "ARRAY",
