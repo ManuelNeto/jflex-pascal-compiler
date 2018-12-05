@@ -62,6 +62,13 @@ non terminal statement_part, statement_body;
 non terminal number, boolean;
 non terminal expr;
 non terminal function_call_opt;
+non terminal procedure_and_function_declaration_part, procedure_and_function_declaration_part_opt;
+non terminal procedure_declaration;
+non terminal formal_parameter_list_opt, formal_parameter_list, formal_parameter_section, formal_parameter_section_ext;
+non terminal value_parameter_section, variable_parameter_section;
+non terminal conformant_array_schema,  unpacked_conformant_array_schema;
+non terminal bound_specification, bound_specification_ext, ordinal_type_identifier;
+non terminal function_declaration;
 
 start with program;
 
