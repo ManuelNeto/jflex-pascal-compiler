@@ -1,14 +1,14 @@
 program nome;
 
 type 
-  string = array [1 .. 5] of char;
+  string1 = array [1 .. 5] of char;
 
 var 
-  word, v1: string;
+  word, v1: string1;
 	
 begin
 
-  word := 'asd';
+  word := asd;
   v1 := word;
 
 end.

@@ -135,7 +135,7 @@ type_definition_part_opt ::=
 ;
 
 type_definition_part ::= 
-	type type_definition SEMICOLON type_definition_part_ext 			{: Logger.print("Line 138");:}
+	TYPE type_definition SEMICOLON type_definition_part_ext 			{: Logger.print("Line 138");:}
 ;
 
 type_definition_part_ext ::=
@@ -267,8 +267,8 @@ atribuition_part_ext ::=
 ;
 
 atribuition_part ::=
-	IDENTIFIER COLON EQ expression		   {: Logger.print("Line 159"); :}
-	|IDENTIFIER COLON EQ constant SEMICOLON {: Logger.print("Line 158"); :}
+	IDENTIFIER ASSIGNMENT expression		   {: Logger.print("Line 159"); :}
+	|IDENTIFIER ASSIGNMENT constant SEMICOLON {: Logger.print("Line 158"); :}
 	
 ;	
 expression ::= 
@@ -320,7 +320,7 @@ conditional_body ::=
 
 result_function ::= 
 	|
-	IDENTIFIER COLON EQ IDENTIFIER SEMICOLON		{: Logger.print("Line 193"); :} ;
+	IDENTIFIER ASSIGNMENT IDENTIFIER SEMICOLON		{: Logger.print("Line 193"); :} ;
 
 function_declaration_part_opt ::=
 	|
