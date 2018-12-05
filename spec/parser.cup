@@ -46,7 +46,8 @@ non terminal program;
 non terminal program_header, block;
 non terminal declaration_part, statement_code;
 non terminal variable_declaration_part_opt, variable_declaration_part, variable_declaration_part_ext, variable_declaration, variable_sequence_opt;
-non terminal const_definition_part_opt, const_definition_part, const_part_ext, const_part, const, constant;
+non terminal const_definition_part_opt, const_definition_part, const_part_ext, const_part, const, constant, list_of_identifiers;
+non terminal type_definition_part_opt;
 non terminal atribute_part_opt, atribute_part_ext, atribute_part;
 non terminal function_declaration_part_opt, function_dcl, function_heading, function_body, function_statement, result_function;
 non terminal procedure_declaration_part_opt, procedure_dcl, procedure_heading, procedure_body;
@@ -79,8 +80,14 @@ declaration_part ::=
 	|
 	|const_definition_part_opt	declaration_part		{: Logger.print("Constant part definition"); :}
 	|variable_declaration_part_opt 	declaration_part	{: Logger.print("Variable declaration part definition"); :}
+	|type_definition_part_opt
 	|function_declaration_part_opt	declaration_part	{: Logger.print("Function declaration part definition"); :}
 	|procedure_declaration_part_opt	declaration_part	{: Logger.print("Procedure declaration part definition"); :}
+;
+
+list_of_identifiers ::=
+	IDENTIFIER COMMA list_of_identifiers 	{:Logger.print("Identifier list definition"); :}
+	| IDENTIFIER   							{:Logger.print("Identifier list definition"); :}
 ;
 
 
