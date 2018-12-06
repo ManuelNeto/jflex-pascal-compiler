@@ -17,18 +17,10 @@ begin
 	num1 := 1;
 	num2 := 2;
 	max := 2;
-   	if (num1 > num2) then
-   	begin
-    	result := num1;
-   	end
-   	else if (num1 > num2) then
-   	begin
-      	result := maximiliano;   
-   	end
+   	if num1 > num2 then
+    	result := num1
    	else
-   	begin
       	result := num2;
-    end
    	max := result;
 end;
 
