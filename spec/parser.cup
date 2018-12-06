@@ -58,7 +58,9 @@ non terminal expression, call_function, function_call_params_opt, function_call_
 non terminal parameter_list_opt, parameter_list, parameter_section_ext, parameter_section, parameter_type,result_type, type_identifier;
 non terminal atribuition_part_opt, atribuition_part_ext, atribuition_part ;
 non terminal conditional_part_opt, conditional_part, conditional_part_ext, op_condition, conditional_body, condition ;
-non terminal statement_part, statement_body;
+non terminal statement_part, statement_body, statement_aux, statement_ext;
+non terminal statement, simple_statement, structured_statement, simple_statement_aux;
+non terminal procedure_statement;
 non terminal number, boolean;
 non terminal expr;
 non terminal function_call_opt;
@@ -232,7 +234,7 @@ variable_sequence_opt ::=
 ;
 
 
-//COMECOU
+//COMECOU PROCEDURE_FUNCTION
 procedure_and_function_declaration_part_opt ::=
 	|
 	procedure_and_function_declaration_part
@@ -317,12 +319,52 @@ function_body ::=
 	block
 ;
 
-//TERMINOU
+//TERMINOU PROCEDURE_FUNCTION
+
+
+//COMECOU STATEMENT_PART
 
 statement_part ::=
-	|
-	BEGIN statement_body END
+	| 											{: Logger.print("Line 326");:}
+	BEGIN statement_aux END 					{: Logger.print("Line 327");:}
 ;
+
+statement_aux ::= 
+	statement statement_ext
+;
+
+statement_ext ::=
+	|
+	SEMICOLON statement statement_ext
+;
+
+statement ::=
+	|
+	| simple_statement
+	| structured_statement	
+;
+
+simple_statement ::=
+	|
+	| IDENTIFIER simple_statement_aux
+;
+
+simple_statement_aux ::=
+	ASSIGNMENT expression
+	| LPAREN list_of_identifiers RPAREN
+;
+
+structured_statement ::=
+	
+;
+
+
+
+
+
+//TERMINOU STATEMENT_PART
+
+
 
 statement_body ::= 
 	|
@@ -368,7 +410,7 @@ atribuition_part ::=
 expression ::= 
 	|
 	|constant
-	|call_function
+	//|call_function
 ; 
 
 call_function ::=
