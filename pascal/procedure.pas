@@ -11,18 +11,12 @@ begin
 	y := 2;
 	m := 3;
 	z := 4; 
-   if (x < y) then
-   begin
-      m:= x
-   end
+   if x < y then
+      m:= x;
    else
-   begin
       m:= y;
-   end
-   if (z < m) then
-   begin
+   if z < m then
       m:= z;
-   end
 end;
 
 
@@ -30,7 +24,7 @@ begin
 a := 6;
 b := 7;
 c := 8;
-~findMin(a,b);
+findMin(a,b);
 
 
 end.
