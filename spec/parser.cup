@@ -406,14 +406,14 @@ atribuition_part ::=
 	
 ;	
 expression ::= 
-	simple_expression rel_op_opt
-	/*|
+	simple_expression rel_op_opt simple_expression	/*|
 	|constant*/
 	//|call_function
 ; 
 
 simple_expression ::=
-	term operator_opt
+	|
+	|term operator_opt
 	| sign term operator_opt
 ;
 
@@ -428,7 +428,8 @@ sign ::=
 ;
 
 term ::=
-	  factor
+	|
+	|  factor
 	| PLUS
 	| MINUS
 	| MULT
@@ -439,7 +440,8 @@ term ::=
 ;
 
 rel_op_opt ::=
-	  EQ
+	|
+	| EQ
 	| DIF
 	| LT
 	| LTEQ
@@ -448,7 +450,8 @@ rel_op_opt ::=
 ;
 
 factor ::=
-	  LPAREN expression RPAREN
+	|
+	|  LPAREN expression RPAREN
 	| IDENTIFIER
 	| call_function
 	| NOT factor
