@@ -12,7 +12,7 @@ begin
 	m := 3;
 	z := 4; 
    if x < y then
-      m:= x
+      m:= x;
    else
       m:= y;
    if z < m then

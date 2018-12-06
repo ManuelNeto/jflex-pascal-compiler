@@ -348,7 +348,7 @@ conditional_statement ::=
 ;
 
 if_statement ::=
-	IF expression THEN statement else_opt
+	IF expression THEN statement SEMICOLON else_opt
 ;
 
 else_opt ::= 
