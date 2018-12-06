@@ -88,11 +88,10 @@ block ::=
 
 declaration_part ::=
 	|
-	|const_definition_part_opt	declaration_part		{: Logger.print("Constant part definition"); :}
-	|type_definition_part_opt 	declaration_part		{: Logger.print("Type definition part"); :}
-	|variable_declaration_part_opt 	declaration_part	{: Logger.print("Variable declaration part definition"); :}
-	|function_declaration_part_opt	declaration_part	{: Logger.print("Function declaration part definition"); :}
-	|procedure_declaration_part_opt	declaration_part	{: Logger.print("Procedure declaration part definition"); :}
+	|const_definition_part_opt declaration_part							{: Logger.print("Constant part definition"); :}
+	|type_definition_part_opt declaration_part							{: Logger.print("Type definition part"); :}
+	|variable_declaration_part_opt declaration_part						{: Logger.print("Variable declaration part definition"); :}
+	|procedure_and_function_declaration_part_opt declaration_part		{: Logger.print("Procedure and function declaration part definition"); :}
 ;
 
 list_of_identifiers ::=
@@ -232,6 +231,94 @@ variable_sequence_opt ::=
 	COMMA IDENTIFIER variable_sequence_opt		
 ;
 
+
+//COMECOU
+procedure_and_function_declaration_part_opt ::=
+	|
+	procedure_and_function_declaration_part
+;
+
+procedure_and_function_declaration_part ::=
+	|
+	| procedure_declaration SEMICOLON procedure_and_function_declaration_part
+	| function_declaration SEMICOLON procedure_and_function_declaration_part
+;
+
+procedure_declaration ::=
+	procedure_heading SEMICOLON procedure_body
+;
+
+procedure_heading ::=
+	PROCEDURE IDENTIFIER formal_parameter_list_opt
+;
+
+procedure_body ::=
+	block
+;
+
+formal_parameter_list_opt ::=
+	|
+	formal_parameter_list
+;
+
+formal_parameter_list ::=
+	LPAREN formal_parameter_section formal_parameter_section_ext RPAREN
+;
+
+formal_parameter_section_ext ::=
+	|
+	SEMICOLON formal_parameter_section formal_parameter_section_ext
+;
+
+formal_parameter_section ::=
+	  value_parameter_section
+	| variable_parameter_section
+;
+
+value_parameter_section ::= 
+	list_of_identifiers COLON parameter_type
+;
+
+parameter_type ::= 
+	type_identifier
+	| conformant_array_schema //mudar esse nome
+;
+
+conformant_array_schema ::= 
+	ARRAY LBRACK bound_specification bound_specification_ext RBRACK OF type_identifier
+;
+
+bound_specification_ext ::=
+	|
+	SEMICOLON bound_specification bound_specification_ext	
+;
+
+bound_specification ::= 
+	IDENTIFIER DOT_DOT IDENTIFIER COLON type_identifier
+;
+
+variable_parameter_section ::=
+	VAR list_of_identifiers COLON parameter_type
+;
+
+function_heading ::= 
+	FUNCTION IDENTIFIER formal_parameter_list_opt COLON result_type
+;
+
+result_type ::=
+	type_identifier
+;
+
+function_declaration ::=
+	function_heading SEMICOLON function_body
+;
+
+function_body ::= 
+	block
+;
+
+//TERMINOU
+
 statement_part ::=
 	|
 	BEGIN statement_body END
@@ -254,7 +341,7 @@ function_call_params_ext ::=
 	|
 	COMMA IDENTIFIER function_call_params_ext;
 
-statement_code ::=
+statement_code ::= 		//TIRAR AQUI
 	|
 	atribuition_part_opt 	{: Logger.print("Line 133"); :} 
 	conditional_part_opt 	{: Logger.print("Line 134"); :}
@@ -329,55 +416,54 @@ result_function ::=
 	|
 	IDENTIFIER ASSIGNMENT IDENTIFIER SEMICOLON		{: Logger.print("Line 193"); :} ;
 
-function_declaration_part_opt ::=
+function_declaration_part_opt ::= 		//TIRAR AQUI
 	|
 	function_dcl	{: Logger.print("Line 197"); :}
 ;
 
-function_dcl ::=
+function_dcl ::= 		//TIRAR AQUI
 	function_heading function_body{: Logger.print("Line 201"); :}
 ;
 
-function_heading ::=
+/*function_heading ::= 		//TIRAR AQUI
 	FUNCTION IDENTIFIER LPAREN parameter_list_opt RPAREN COLON result_type SEMICOLON {: Logger.print("Line 205"); :}
-;
+;*/
 
-parameter_list_opt ::=
+parameter_list_opt ::= 		//TIRAR AQUI
 	|
 	parameter_list {: Logger.print("Line 210");:}
 ;
 
-parameter_list ::=
+parameter_list ::= 		//TIRAR AQUI
 	parameter_section parameter_section_ext {: Logger.print("Line 214");:}
 ;
 
-parameter_section_ext ::=
+parameter_section_ext ::= 		//TIRAR AQUI
 	 |
 	 SEMICOLON parameter_section parameter_section_ext {: Logger.print("Line 219");:}
 ;
 
-type_identifier ::=
+type_identifier ::= 		//TIRAR AQUI
 	IDENTIFIER {: Logger.print("Line 223");:}
 ;
 
-parameter_section ::=
+parameter_section ::= 		//TIRAR AQUI
 	IDENTIFIER COLON parameter_type {: Logger.print("Line 227"); :}
 ;
 
-parameter_type ::=
+parameter_type ::= 		//TIRAR AQUI
 	type_identifier {: Logger.print("Line 231");:}
 ;
 
-result_type ::=
+result_type ::= 		//TIRAR AQUI
 	type_identifier {: Logger.print("Line 235");:}
 ;
 
-function_body ::= 
+/*function_body ::=  		//TIRAR AQUI
 	variable_declaration_part_opt BEGIN function_statement   {: Logger.print("239");:}
-
-;
+;*/
 	
-function_statement ::=
+function_statement ::=  		//TIRAR AQUI
 	statement_code {: Logger.print("Line 244"); :};
 	
 procedure_declaration_part_opt ::=
@@ -389,13 +475,13 @@ procedure_dcl ::=
 	procedure_heading procedure_body{: Logger.print("Line 201"); :}
 ;
 
-procedure_heading ::=
+/*procedure_heading ::=
 	PROCEDURE IDENTIFIER LPAREN variable_declaration_part_opt RPAREN SEMICOLON{: Logger.print("Line 205"); :}
-;
+;*/
 
-procedure_body ::=
+/*procedure_body ::=
 	BEGIN function_statement   {: Logger.print("287");:}
-;
+;*/
 
 
 

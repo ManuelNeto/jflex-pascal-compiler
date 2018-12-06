@@ -36,5 +36,5 @@ begin
    a := 100;
    b := 200;
    c := 300;
-   ~fun := max(a, b); 
+   fun := max(a, b); 
 end.
