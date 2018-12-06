@@ -11,18 +11,12 @@ begin
 	y := 2;
 	m := 3;
 	z := 4; 
-   if (x < y) then
-   begin
+   if x < y then
       m:= x
-   end
    else
-   begin
       m:= y;
-   end
-   if (z < m) then
-   begin
+   if z < m then
       m:= z;
-   end
 end;
 
 

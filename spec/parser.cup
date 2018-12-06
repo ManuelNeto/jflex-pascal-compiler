@@ -47,22 +47,24 @@ non terminal program_header, block;
 non terminal declaration_part, statement_code;
 non terminal type_definition_part_opt, type_definition_part, type_definition_part_ext, type_definition, type;
 non terminal simple_type, subrange_type, enumerated_type, structured_type;
-non terminal array_type, set_type;
-non terminal index_type, index_type_ext, element_type, constant_ext, base_type;  
+non terminal set_type;
+non terminal constant_ext, base_type;  
 non terminal variable_declaration_part_opt, variable_declaration_part, variable_declaration_part_ext, variable_declaration, variable_sequence_opt;
 non terminal const_definition_part_opt, const_definition_part, const_part_ext, const_part, const, constant, list_of_identifiers;
 non terminal atribute_part_opt, atribute_part_ext, atribute_part;
 non terminal function_declaration_part_opt, function_dcl, function_heading, function_body, function_statement, result_function;
 non terminal procedure_declaration_part_opt, procedure_dcl, procedure_heading, procedure_body;
-non terminal expression, call_function, function_call_params_opt, function_call_params_ext;
+non terminal call_function, function_call_params_opt, function_call_params_ext;
 non terminal parameter_list_opt, parameter_list, parameter_section_ext, parameter_section, parameter_type,result_type, type_identifier;
 non terminal atribuition_part_opt, atribuition_part_ext, atribuition_part ;
 non terminal conditional_part_opt, conditional_part, conditional_part_ext, op_condition, conditional_body, condition ;
 non terminal statement_part, statement_body, statement_aux, statement_ext;
 non terminal statement, simple_statement, structured_statement, simple_statement_aux;
-non terminal procedure_statement;
+non terminal conditional_statement, if_statement, else_opt;
 non terminal number, boolean;
 non terminal expr;
+non terminal expression, expression_ext, simple_expression, rel_op_opt;
+non terminal term, factor, operator, operator_opt, sign, set, element_list;
 non terminal function_call_opt;
 non terminal procedure_and_function_declaration_part, procedure_and_function_declaration_part_opt;
 non terminal procedure_declaration;
@@ -126,6 +128,7 @@ constant  ::=
 	| IDENTIFIER														{: Logger.print("Line 98");:}
 	| STRING 															{: Logger.print("Line 99");:}
 	| boolean
+	| NOT boolean
 ;
 number ::=
 	INTEGER_NUMBER 														{: Logger.print("Line 102");:}
@@ -175,25 +178,7 @@ enumerated_type ::=
 ;
 
 structured_type ::= 
-	  array_type														{: Logger.print("Line 170");:}
-	| set_type															{: Logger.print("Line 171");:}
-;
-
-array_type ::=
-	ARRAY LBRACK index_type index_type_ext RBRACK OF element_type			{: Logger.print("Line 175");:}
-;
-
-index_type_ext ::= 
-	|
-	COMMA index_type index_type_ext											{: Logger.print("Line 180");:}
-;
-
-index_type ::= 
-	simple_type			{: Logger.print("Line 184");:}
-;
-
-element_type ::= 
-	type			{: Logger.print("Line 188");:}
+	set_type															{: Logger.print("Line 171");:}
 ;
 
 constant_ext ::=
@@ -355,7 +340,20 @@ simple_statement_aux ::=
 ;
 
 structured_statement ::=
-	
+	conditional_statement
+;
+
+conditional_statement ::=
+	  if_statement
+;
+
+if_statement ::=
+	IF expression THEN statement else_opt
+;
+
+else_opt ::= 
+	| 
+	ELSE statement 
 ;
 
 
@@ -403,19 +401,81 @@ atribuition_part_ext ::=
 ;
 
 atribuition_part ::=
-	IDENTIFIER ASSIGNMENT expression		   {: Logger.print("Line 159"); :}
+	IDENTIFIER ASSIGNMENT expression		   {: Logger.print("Line 159"); :}		//ATENÇÃO
 	|IDENTIFIER ASSIGNMENT constant SEMICOLON {: Logger.print("Line 158"); :}
 	
 ;	
 expression ::= 
-	|
-	|constant
+	simple_expression rel_op_opt
+	/*|
+	|constant*/
 	//|call_function
 ; 
 
+simple_expression ::=
+	term operator_opt
+	| sign term operator_opt
+;
+
+operator_opt ::= 
+	|
+	operator term operator_opt
+;
+
+sign ::=
+	  PLUS
+	| MINUS
+;
+
+term ::=
+	  factor
+	| PLUS
+	| MINUS
+	| MULT
+	| DIV
+	| MOD
+	| AND
+	| OR
+;
+
+rel_op_opt ::=
+	  EQ
+	| DIF
+	| LT
+	| LTEQ
+	| GT
+	| GTEQ 
+;
+
+factor ::=
+	  LPAREN expression RPAREN
+	| IDENTIFIER
+	| call_function
+	| NOT factor
+	| constant
+	| set
+;
+
+
 call_function ::=
 	|
-	IDENTIFIER LPAREN function_call_params_opt RPAREN SEMICOLON;
+	IDENTIFIER LPAREN function_call_params_opt RPAREN SEMICOLON
+;
+
+set ::=
+	LBRACK element_list RBRACK
+;
+
+element_list ::=
+	|
+	expression expression_ext
+;
+	
+	
+expression_ext ::=
+	|
+	COMMA expression expression_ext 
+;	
 
 
 conditional_part_opt ::=
