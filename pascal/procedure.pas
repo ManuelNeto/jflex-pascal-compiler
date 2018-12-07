@@ -17,6 +17,10 @@ begin
       m:= y;
    if z < m then
       m:= z;
+   else
+      m := 2;
+   if x and y then
+      a := 'logical testes';
 end;
 
 

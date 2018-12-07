@@ -63,7 +63,7 @@ non terminal statement, simple_statement, structured_statement, simple_statement
 non terminal conditional_statement, if_statement, else_opt;
 non terminal number, boolean;
 non terminal expr;
-non terminal expression, expression_ext, simple_expression, rel_op_opt;
+non terminal expression, expression_ext, simple_expression, rel_op_opt, logical_op_opt;
 non terminal term, factor, operator, operator_opt, sign, set, element_list;
 non terminal function_call_opt;
 non terminal procedure_and_function_declaration_part, procedure_and_function_declaration_part_opt;
@@ -406,7 +406,7 @@ atribuition_part ::=
 	
 ;	
 expression ::= 
-	simple_expression rel_op_opt simple_expression	/*|
+	simple_expression rel_op_opt logical_op_opt simple_expression	/*|
 	|constant*/
 	//|call_function
 ; 
@@ -435,8 +435,12 @@ term ::=
 	| MULT
 	| DIV
 	| MOD
+;
+
+logical_op_opt ::=
+	|
 	| AND
-	| OR
+	| OR	
 ;
 
 rel_op_opt ::=
