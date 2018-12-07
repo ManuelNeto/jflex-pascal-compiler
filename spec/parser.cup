@@ -78,16 +78,16 @@ start with program;
 
 
 program ::=
-	program_header block DOT 											{: Logger.print("Program definition"); :}
+	program_header block DOT 		{: Logger.print("Program definition"); :}
 ;
 
 program_header ::=
-	PROGRAM IDENTIFIER SEMICOLON 										{: System.out.println("Program header definition"); :}
+	PROGRAM IDENTIFIER SEMICOLON 	{: System.out.println("Program header definition"); :}
 ;
 
 block ::=
-	declaration_part 													{: Logger.print("Declaration part");:}
-	statement_part														{: Logger.print("Statement part");:}
+	declaration_part 				{: Logger.print("Declaration part");:}
+	statement_part					{: Logger.print("Statement part");:}
 ;
 
 declaration_part ::=
@@ -100,107 +100,107 @@ declaration_part ::=
 
 list_of_identifiers ::=
 	|
-	|IDENTIFIER COMMA list_of_identifiers 								{:Logger.print("Line 103"); :}
-	|IDENTIFIER   														{:Logger.print("Line 104"); :}
-	|STRING   															{:Logger.print("Line 105"); :}
-	|expression   														{:Logger.print("Line 106"); :}
+	|IDENTIFIER COMMA list_of_identifiers 	{:Logger.print("Identifier list definition"); :}
+	|IDENTIFIER
+	|STRING   									{:Logger.print("Identifier list definition"); :}
+	|expression
 ;
 
 
 const_definition_part_opt ::=
-	|																	{: Logger.print("Line 111");:}
-	const_definition_part											 	{: Logger.print("Line 112");:}
+	|
+	const_definition_part {: Logger.print("Line 79");:}
 						
 ;
 
 const_definition_part ::=
-	CONST const SEMICOLON const_part_ext 								{: Logger.print("Line 117");:}
+	CONST const SEMICOLON const_part_ext {: Logger.print("Line 84");:}
 ;
 
 const_part_ext ::=
-	|																	{: Logger.print("Line 121");:}
-	const SEMICOLON const_part_ext 										{: Logger.print("Line 122");:}
+	|
+	const SEMICOLON const_part_ext {: Logger.print("Line 89");:}
 ;
 
 const ::=
-	IDENTIFIER EQ constant 												{: Logger.print("Line 126");:}
+	IDENTIFIER EQ constant {: Logger.print("Line 93");:}
 ;
 
 constant  ::=
-	number 																{: Logger.print("Line 130");:}
-	| IDENTIFIER														{: Logger.print("Line 131");:}
-	| STRING 															{: Logger.print("Line 132");:}
-	| boolean 															{: Logger.print("Line 133");:}
-	| NOT boolean 														{: Logger.print("Line 134");:}
+	number 																{: Logger.print("Line 97");:}
+	| IDENTIFIER														{: Logger.print("Line 98");:}
+	| STRING 															{: Logger.print("Line 99");:}
+	| boolean
+	| NOT boolean
 ;
 number ::=
-	INTEGER_NUMBER 														{: Logger.print("Line 137");:}
-	| REAL_NUMBER	 													{: Logger.print("Line 138");:}
+	INTEGER_NUMBER 														{: Logger.print("Line 102");:}
+	| REAL_NUMBER	 													{: Logger.print("Line 103");:}
 ;
 
 boolean ::=
-	BOOLEAN_LITERAL 													{: Logger.print("Line 142");:}
-	|NOT BOOLEAN_LITERAL												{: Logger.print("Line 143");:}
+	BOOLEAN_LITERAL 													{: Logger.print("Line 128");:}
+	|NOT BOOLEAN_LITERAL												{: Logger.print("Line 129");:}
 ;
 
 
 type_definition_part_opt ::=
-	|	type_definition_part 											{: Logger.print("Line 148");:}
+	|	type_definition_part 											{: Logger.print("Line 134");:}
 ;
 
 type_definition_part ::= 
-	TYPE type_definition SEMICOLON type_definition_part_ext 			{: Logger.print("Line 152");:}
+	TYPE type_definition SEMICOLON type_definition_part_ext 			{: Logger.print("Line 138");:}
 ;
 
 type_definition_part_ext ::=
-	type_definition SEMICOLON type_definition_part_ext					{: Logger.print("Line 156");:}
-	| 																	{: Logger.print("Line 157");:}
+	type_definition SEMICOLON type_definition_part_ext					{: Logger.print("Line 142");:}
+	|
 ;
 
 type_definition ::=
-	IDENTIFIER EQ type													{: Logger.print("Line 161");:}
+	IDENTIFIER EQ type													{: Logger.print("Line 147");:}
 ;
 
 type ::= 
-	  simple_type														{: Logger.print("Line 165");:}
-	| structured_type													{: Logger.print("Line 166");:}
-	| type_identifier													{: Logger.print("Line 167");:}
+	  simple_type														{: Logger.print("Line 151");:}
+	| structured_type													{: Logger.print("Line 152");:}
+	| type_identifier													{: Logger.print("Line 153");:}
 ;
 
 simple_type ::=
-      subrange_type														{: Logger.print("Line 171");:}
-	| enumerated_type													{: Logger.print("Line 172");:}
+      subrange_type														{: Logger.print("Line 157");:}
+	| enumerated_type													{: Logger.print("Line 158");:}
 ;
 
 subrange_type ::=
-	constant DOT_DOT constant											{: Logger.print("Line 176");:}
+	constant DOT_DOT constant											{: Logger.print("Line 162");:}
 ;
 
 enumerated_type ::= 
-	LPAREN list_of_identifiers RPAREN									{: Logger.print("Line 180");:}
+	LPAREN list_of_identifiers RPAREN									{: Logger.print("Line 166");:}
 ;
 
 structured_type ::= 
-	set_type															{: Logger.print("Line 184");:}
+	set_type															{: Logger.print("Line 171");:}
 ;
 
 constant_ext ::=
-	|																	{: Logger.print("Line 188");:}
-	COMMA constant constant_ext											{: Logger.print("Line 189");:}
+	|
+	COMMA constant constant_ext			{: Logger.print("Line 193");:}
 ;
 
 set_type ::=
-	SET OF base_type													{: Logger.print("Line 193");:}
+	SET OF base_type			{: Logger.print("Line 197");:}
 ;
 
 base_type ::=
-	type																{: Logger.print("Line 197");:}
+	type			{: Logger.print("Line 201");:}
 ;
 
 
 variable_declaration_part_opt ::=
-	variable_declaration_part											{: Logger.print("Line 202"); :}
-	| 																	{: Logger.print("Line 203"); :}
+	variable_declaration_part		{: Logger.print("Line 106"); :}
+	| {:Logger.print("VAZIO");:}
 ;
 
 variable_declaration_part ::=
@@ -313,68 +313,71 @@ function_body ::=
 //COMECOU STATEMENT_PART
 
 statement_part ::=
-	| 											{: Logger.print("Line 316");:}
-	BEGIN statement_aux END 					{: Logger.print("Line 317");:}
+	| 											{: Logger.print("Line 326");:}
+	BEGIN statement_aux END 					{: Logger.print("Line 327");:}
 ;
 
 statement_aux ::= 
-	statement statement_ext						{: Logger.print("Line 321");:}
+	statement statement_ext
 ;
 
 statement_ext ::=
-	|											{: Logger.print("Line 325");:}
-	SEMICOLON statement statement_ext			{: Logger.print("Line 326");:}
+	|
+	SEMICOLON statement statement_ext
 ;
 
 statement ::=
-	|											{: Logger.print("Line 330");:}
-	| simple_statement							{: Logger.print("Line 331");:}
-	| structured_statement						{: Logger.print("Line 332");:}
+	|
+	| simple_statement
+	| structured_statement	
 ;
 
 simple_statement ::=
-	|											{: Logger.print("Line 336");:}
-	| IDENTIFIER simple_statement_aux			{: Logger.print("Line 337");:}
-	| expression								{: Logger.print("Line 338");:}
+	|
+	| IDENTIFIER simple_statement_aux
+	| expression
 ;
 
 simple_statement_aux ::=
-	ASSIGNMENT expression						{: Logger.print("Line 342");:}
-	| LPAREN list_of_identifiers RPAREN			{: Logger.print("Line 343");:}
+	ASSIGNMENT expression
+	| LPAREN list_of_identifiers RPAREN
 ;
 
 structured_statement ::=
-	conditional_statement						{: Logger.print("Line 347");:}
+	conditional_statement
 ;
 
 conditional_statement ::=
-	  if_statement								{: Logger.print("Line 351");:}
+	  if_statement
 ;
 
 if_statement ::=
-	IF expression THEN statement SEMICOLON else_aux					{: Logger.print("Line 355");:}
+	IF  expression  THEN statement SEMICOLON else_aux
 ;
 
 else_aux ::=
-	|											{: Logger.print("Line 359");:}
-	|if_statement								{: Logger.print("Line 360");:}
-	|ELSE else_direct_aux						{: Logger.print("Line 361");:}
+	|
+	|if_statement	
+	|ELSE else_direct_aux
 ;
 
-else_direct_aux ::=								{: Logger.print("Line 364");:}
-	|elseif_opt									{: Logger.print("Line 365");:}
-	|else_opt									{: Logger.print("Line 366");:}
+else_direct_aux ::=
+	|elseif_opt
+	|else_opt
 ;
 
 elseif_opt ::=
-	IF  expression  THEN statement SEMICOLON else_aux				{: Logger.print("Line 370");:}
+	IF  expression  THEN statement SEMICOLON else_aux
 
 ;
 
 else_opt ::= 
-	| 											{: Logger.print("Line 375");:}
-	statement 									{: Logger.print("Line 376");:}
+	| 
+	statement 
 ;
+
+
+
 
 
 //TERMINOU STATEMENT_PART
@@ -383,62 +386,61 @@ else_opt ::=
 
 statement_body ::= 
 	|
-	|expr statement_body									{: Logger.print("Line 386"); :}
-	|atribuition_part_opt statement_body 					{: Logger.print("Line 387");:}
+	|expr statement_body									{: Logger.print("Line 123"); :}
+	|atribuition_part_opt statement_body 					{: Logger.print("Line 124");:}
 	|TIL call_function statement_body
 ;
 
 	
 function_call_params_opt ::= 
-	|														{: Logger.print("Line 393");:}
-	IDENTIFIER function_call_params_ext						{: Logger.print("Line 394");:}
+	|
+	IDENTIFIER function_call_params_ext
 ;
 
 function_call_params_ext ::=
-	|														{: Logger.print("Line 398");:}
+	|
 	COMMA IDENTIFIER function_call_params_ext;
 
 statement_code ::= 		//TIRAR AQUI
-	|														{: Logger.print("Line 402");:}
-	atribuition_part_opt 									{: Logger.print("Line 403"); :} 
-	conditional_part_opt 									{: Logger.print("Line 404"); :}
-	result_function											{: Logger.print("Line 405"); :}
-	END SEMICOLON											{: Logger.print("Line 406");:}
+	|
+	atribuition_part_opt 	{: Logger.print("Line 133"); :} 
+	conditional_part_opt 	{: Logger.print("Line 134"); :}
+	result_function			{: Logger.print("Line 135"); :}
+	END SEMICOLON
 	 
 ;
 
 atribuition_part_opt ::=
-	 |														{: Logger.print("Line 411");:}
-	 atribuition_part atribuition_part_ext 					{: Logger.print("Line 412"); :}
+	 |
+	 atribuition_part atribuition_part_ext {: Logger.print("Line 142"); :}
 ;
 
 atribuition_part_ext ::=
-	|														{: Logger.print("Line 416");:}
-	atribuition_part atribuition_part_ext 					{: Logger.print("Line 417"); :}
+	|
+	atribuition_part atribuition_part_ext {: Logger.print("Line 147"); :}
 ;
 
 atribuition_part ::=
-	IDENTIFIER ASSIGNMENT expression		   				{: Logger.print("Line 421"); :}		//ATENÇÃO
-	|IDENTIFIER ASSIGNMENT constant SEMICOLON 				{: Logger.print("Line 422"); :}
+	IDENTIFIER ASSIGNMENT expression		   {: Logger.print("Line 159"); :}		//ATENÇÃO
+	|IDENTIFIER ASSIGNMENT constant SEMICOLON {: Logger.print("Line 158"); :}
 	
 ;	
 expression ::= 
-	|														{: Logger.print("Line 426");:}
-	simple_expression 										{: Logger.print("Line 427");:}
-	rel_op_opt		 										{: Logger.print("Line 428");:}										
-	logical_op_opt  										{: Logger.print("Line 429");:}
-	simple_expression 										{: Logger.print("Line 430");:}
+	|
+	simple_expression rel_op_opt logical_op_opt simple_expression	/*|
+	|constant*/
+	//|call_function
 ; 
 
 simple_expression ::=
-	| 														{: Logger.print("Line 434");:}
-	|term operator_opt expression							{: Logger.print("Line 435");:}
-	| sign term operator_opt 								{: Logger.print("Line 436");:}
+	|
+	|term operator_opt expression
+	| sign term operator_opt
 ;
 
 operator_opt ::= 
-	| 														{: Logger.print("Line 440");:}
-	operator term operator_opt								{: Logger.print("Line 441");:}
+	|
+	operator term operator_opt
 ;
 
 sign ::=
@@ -621,7 +623,6 @@ expr ::=
 	|	expr DIV expr
 	|	INTEGER_NUMBER
 ;
-
 
 
 
