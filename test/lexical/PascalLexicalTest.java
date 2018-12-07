@@ -29,10 +29,10 @@ public class PascalLexicalTest {
 	}
 
 	@Test
-	public void helloTest() {	
-        //Load Hello Lexical
-		System.out.println("INICIO Hello");
-		String testCode1Path = rootPath + subPath + "/hello.pas";
+	public void helloTest() {
+		// Load Hello Lexical
+		System.out.println("Hello test");
+		String testCode1Path = rootPath + subPath + "/teste0.pas";
 		try {
 			String rootPath = Paths.get("").toAbsolutePath().toString();
 			FileInputStream stream = new FileInputStream(testCode1Path);
@@ -44,19 +44,18 @@ public class PascalLexicalTest {
 				System.out.println(symb + " Name: " + sym.terminalNames[symb.sym]);
 				symb = lexer.next_token();
 			}
-		
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.err.println(e.getMessage());
 		}
 	}
-	
+
 	@Test
-	public void ifTest() {	
-        //Load If Lexical
-		System.out.println("INICIO If");
-		String testCode1Path = rootPath + subPath + "/if.pas";
+	public void functionTest() {
+		// Load If Lexical
+		System.out.println("Teste funçao");
+		String testCode1Path = rootPath + subPath + "/teste1.pas";
 		try {
 			String rootPath = Paths.get("").toAbsolutePath().toString();
 			FileInputStream stream = new FileInputStream(testCode1Path);
@@ -68,64 +67,18 @@ public class PascalLexicalTest {
 				symb = lexer.next_token();
 				System.out.println(symb + " Name: " + sym.terminalNames[symb.sym]);
 			}
-		
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.err.println(e.getMessage());
-		}
-	}
-	
-	@Test
-	public void addTest() {	
-        //Load Add Lexical
-		System.out.println("INICIO Add");
-		String testCode1Path = rootPath + subPath + "/add.pas";
-		try {
-			String rootPath = Paths.get("").toAbsolutePath().toString();
-			FileInputStream stream = new FileInputStream(testCode1Path);
-			Reader reader = new InputStreamReader(stream);
-			Scanner lexer = new Scanner(reader);
 
-			Symbol symb = lexer.next_token();
-			while (symb.sym != sym.EOF) {
-				symb = lexer.next_token();
-				System.out.println(symb + " Name: " + sym.terminalNames[symb.sym]);
-			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.err.println(e.getMessage());
 		}
 	}
-	
-	
-	@Test
-	public void setTest() {	
-        //Load Add Lexical
-		System.out.println("INICIO Set");
-		String testCode1Path = rootPath + subPath + "/set.pas";
-		try {
-			String rootPath = Paths.get("").toAbsolutePath().toString();
-			FileInputStream stream = new FileInputStream(testCode1Path);
-			Reader reader = new InputStreamReader(stream);
-			Scanner lexer = new Scanner(reader);
 
-			Symbol symb = lexer.next_token();
-			while (symb.sym != sym.EOF) {
-				symb = lexer.next_token();
-				System.out.println(symb + " Name: " + sym.terminalNames[symb.sym]);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.err.println(e.getMessage());
-		}
-	}
-	
 	@Test
-	public void logicalOprTest() {	
-        //Load Add Lexical
-		System.out.println("INICIO Logical Opr");
-		String testCode1Path = rootPath + subPath + "/logicalOpr.pas";
+	public void setTest() {
+		// Load Add Lexical
+		System.out.println("Teste Set e Comentarios");
+		String testCode1Path = rootPath + subPath + "/teste2.pas";
 		try {
 			String rootPath = Paths.get("").toAbsolutePath().toString();
 			FileInputStream stream = new FileInputStream(testCode1Path);
@@ -144,10 +97,10 @@ public class PascalLexicalTest {
 	}
 
 	@Test
-	public void exemploGit() {	
-        //Load Add Lexical
-		System.out.println("INICIO Function Exemplo");
-		String testCode1Path = rootPath + subPath + "/exemploGit.pas";
+	public void conditionalFlowTest() {
+		// Load Add Lexical
+		System.out.println("Teste fluxo condicional");
+		String testCode1Path = rootPath + subPath + "/teste3.pas";
 		try {
 			String rootPath = Paths.get("").toAbsolutePath().toString();
 			FileInputStream stream = new FileInputStream(testCode1Path);
@@ -164,12 +117,12 @@ public class PascalLexicalTest {
 			System.err.println(e.getMessage());
 		}
 	}
-	
+
 	@Test
-	public void exemploProcedure() {	
-        //Load Add Lexical
-		System.out.println("INICIO Procedure Exemplo");
-		String testCode1Path = rootPath + subPath + "/procedure.pas";
+	public void conditionalTeste2() {
+		// Load Add Lexical
+		System.out.println("Teste fluxo condicional envolvendo procedures");
+		String testCode1Path = rootPath + subPath + "/teste4.pas";
 		try {
 			String rootPath = Paths.get("").toAbsolutePath().toString();
 			FileInputStream stream = new FileInputStream(testCode1Path);
@@ -186,12 +139,12 @@ public class PascalLexicalTest {
 			System.err.println(e.getMessage());
 		}
 	}
-	
+
 	@Test
-	public void testaTpye() {	
-        //Load Add Lexical
-		System.out.println("INICIO Type Exemplo");
-		String testCode1Path = rootPath + subPath + "/testType.pas";
+	public void logicalOperator() {
+		// Load Add Lexical
+		System.out.println("Teste logical Operator");
+		String testCode1Path = rootPath + subPath + "/teste5.pas";
 		try {
 			String rootPath = Paths.get("").toAbsolutePath().toString();
 			FileInputStream stream = new FileInputStream(testCode1Path);
@@ -208,12 +161,12 @@ public class PascalLexicalTest {
 			System.err.println(e.getMessage());
 		}
 	}
-	
+
 	@Test
-	public void testaExpression() {	
-        //Load Add Lexical
-		System.out.println("INICIO Type Exemplo");
-		String testCode1Path = rootPath + subPath + "/procedure.pas";
+	public void procedureTest() {
+		// Load Add Lexical
+		System.out.println("Teste procedure");
+		String testCode1Path = rootPath + subPath + "/teste6.pas";
 		try {
 			String rootPath = Paths.get("").toAbsolutePath().toString();
 			FileInputStream stream = new FileInputStream(testCode1Path);
@@ -230,7 +183,5 @@ public class PascalLexicalTest {
 			System.err.println(e.getMessage());
 		}
 	}
-
-
 
 }
