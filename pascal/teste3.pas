@@ -30,23 +30,17 @@ else if true then
 		Z := 5 + 6;
 	
 	
-else if true then
+else if verdade then
 	
 		Z := 5 * 10;
-	
-	
-else if not true then
-	
+
+else if not verdade then
 		Z := 5;
 	
-	
 else if sera then
-	
 		Z := 1;
 	
-	
 else
-	 
 		Z := 4;
 	
 

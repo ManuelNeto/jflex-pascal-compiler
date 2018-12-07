@@ -335,6 +335,7 @@ statement ::=
 simple_statement ::=
 	|
 	| IDENTIFIER simple_statement_aux
+	| expression
 ;
 
 simple_statement_aux ::=
@@ -351,11 +352,12 @@ conditional_statement ::=
 ;
 
 if_statement ::=
-	IF expression THEN statement SEMICOLON else_aux
+	IF  expression  THEN statement SEMICOLON else_aux
 ;
 
 else_aux ::=
 	|
+	|if_statement	
 	|ELSE else_direct_aux
 ;
 
@@ -365,7 +367,7 @@ else_direct_aux ::=
 ;
 
 elseif_opt ::=
-	IF expression THEN statement SEMICOLON else_aux
+	IF  expression  THEN statement SEMICOLON else_aux
 
 ;
 
@@ -424,6 +426,7 @@ atribuition_part ::=
 	
 ;	
 expression ::= 
+	|
 	simple_expression rel_op_opt logical_op_opt simple_expression	/*|
 	|constant*/
 	//|call_function
@@ -431,7 +434,7 @@ expression ::=
 
 simple_expression ::=
 	|
-	|term operator_opt
+	|term operator_opt expression
 	| sign term operator_opt
 ;
 
@@ -448,11 +451,11 @@ sign ::=
 term ::=
 	|
 	|  factor
-	| PLUS
-	| MINUS
-	| MULT
-	| DIV
-	| MOD
+	| PLUS term
+	| MINUS term
+	| MULT term
+	| DIV term
+	| MOD term
 ;
 
 logical_op_opt ::=
@@ -463,12 +466,12 @@ logical_op_opt ::=
 
 rel_op_opt ::=
 	|
-	| EQ
-	| DIF
-	| LT
-	| LTEQ
-	| GT
-	| GTEQ 
+	| EQ expression
+	| DIF expression
+	| LT expression
+	| LTEQ expression
+	| GT expression
+	| GTEQ expression
 ;
 
 factor ::=
