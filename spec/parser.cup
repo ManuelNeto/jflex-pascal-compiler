@@ -60,7 +60,7 @@ non terminal atribuition_part_opt, atribuition_part_ext, atribuition_part ;
 non terminal conditional_part_opt, conditional_part, conditional_part_ext, op_condition, conditional_body, condition ;
 non terminal statement_part, statement_body, statement_aux, statement_ext;
 non terminal statement, simple_statement, structured_statement, simple_statement_aux;
-non terminal conditional_statement, if_statement, else_opt;
+non terminal conditional_statement, if_statement, else_opt, else_aux, else_direct_aux, elseif_opt;
 non terminal number, boolean;
 non terminal expr;
 non terminal expression, expression_ext, simple_expression, rel_op_opt, logical_op_opt;
@@ -99,8 +99,11 @@ declaration_part ::=
 ;
 
 list_of_identifiers ::=
-	IDENTIFIER COMMA list_of_identifiers 	{:Logger.print("Identifier list definition"); :}
-	| IDENTIFIER   							{:Logger.print("Identifier list definition"); :}
+	|
+	|IDENTIFIER COMMA list_of_identifiers 	{:Logger.print("Identifier list definition"); :}
+	|IDENTIFIER
+	|STRING   									{:Logger.print("Identifier list definition"); :}
+	|expression
 ;
 
 
@@ -348,12 +351,27 @@ conditional_statement ::=
 ;
 
 if_statement ::=
-	IF expression THEN statement SEMICOLON else_opt
+	IF expression THEN statement SEMICOLON else_aux
+;
+
+else_aux ::=
+	|
+	|ELSE else_direct_aux
+;
+
+else_direct_aux ::=
+	|elseif_opt
+	|else_opt
+;
+
+elseif_opt ::=
+	IF expression THEN statement SEMICOLON else_aux
+
 ;
 
 else_opt ::= 
 	| 
-	ELSE statement 
+	statement 
 ;
 
 

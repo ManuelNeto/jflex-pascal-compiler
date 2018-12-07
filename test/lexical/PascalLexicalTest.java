@@ -213,7 +213,7 @@ public class PascalLexicalTest {
 	public void testaExpression() {	
         //Load Add Lexical
 		System.out.println("INICIO Type Exemplo");
-		String testCode1Path = rootPath + subPath + "/procedure.pas";
+		String testCode1Path = rootPath + subPath + "/conditional.pas";
 		try {
 			String rootPath = Paths.get("").toAbsolutePath().toString();
 			FileInputStream stream = new FileInputStream(testCode1Path);

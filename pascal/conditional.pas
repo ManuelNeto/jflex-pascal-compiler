@@ -10,44 +10,44 @@ begin
 X := 3;
 sera := true;
 
-if (X > Q) then
-	begin
+if X > Q then
+	
 		Z := 3;
-	end
 	
-else if (X <= Q) then
-	begin
+	
+else if X <= Q then
+	
 		Z := 8;
-	end
 	
-else if (false) then
-	begin
+	
+else if false then
+	
 		Z := -16;
-	end
 	
-else if (true) then
-	begin
-		~Z := 5 + 6;
-	end
 	
-else if (verdade) then
-	begin
-		~Z := 5 * 10;
-	end
+else if true then
 	
-else if (not verdade) then
-	begin
+		Z := 5 + 6;
+	
+	
+else if true then
+	
+		Z := 5 * 10;
+	
+	
+else if not true then
+	
 		Z := 5;
-	end
 	
-else if (sera) then
-	begin
+	
+else if sera then
+	
 		Z := 1;
-	end
+	
 	
 else
-	begin 
+	 
 		Z := 4;
-	end
+	
 
 end.
